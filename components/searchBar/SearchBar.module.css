@@ -1,0 +1,25 @@
+.container {
+    display: grid;
+    grid-template-columns: 20fr 1fr;
+}
+
+.container input {
+    height: 40px;
+    border-radius: 10px 0 0 10px;
+    padding-left: 18px;
+    padding-right: 18px;
+    border: none;
+}
+
+.searchBtn {
+    height: 40px;
+    width: 40px;
+    border-radius: 0 10px 10px 0;
+    border: none;
+    background-color: var(--p2-color);
+}
+
+.searchBtn span {
+    width: 20px;
+    height: 20px;
+}
