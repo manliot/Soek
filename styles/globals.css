@@ -7,7 +7,10 @@
   --p3-color: #00425A;
   --txt-color: #232323;
   --font-poppins: 'Poppins', sans-serif;
+}
 
+body {
+  font-size: 16px;
 }
 
 * {

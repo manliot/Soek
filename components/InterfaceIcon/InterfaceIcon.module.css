@@ -1,0 +1,35 @@
+.container {
+  height: 50px;
+  width: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container p {
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.iconContainer {
+  position: relative;
+}
+
+.iconNotificationNumber {
+  font-size: 0.625rem;
+  text-align: center;
+  border-radius: 100px;
+  width: 15px;
+  height: 15px;
+  background-color: var(--p2-color);
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  top: 13px;
+  right: 2px;
+}
