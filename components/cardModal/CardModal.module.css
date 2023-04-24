@@ -22,15 +22,11 @@
 .horizontalContainer {
   max-height: 420px;
   max-width: 530px;
-  height: 420px;
-  width: 530px;
 }
 
 .verticalContainer {
   max-width: 420px;
   max-height: 530px;
-  width: 420px;
-  height: 530px;
 }
 
 .btnContainer {
