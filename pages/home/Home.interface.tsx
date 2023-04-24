@@ -1,4 +1,4 @@
-import { Product } from "../../components/productCard/Product.interface";
+import { Product } from "../../types/Product.interface";
 export interface HomeProps {
   products: Product[]
 }
