@@ -1,0 +1,57 @@
+.overlay {
+  background-color: var(--bg-modal-color);
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cardContainer {
+  background-color: var(--bg-color);
+  padding: 15px 20px 20px 20px;
+  box-sizing: border-box;
+  border-radius: 23px;
+  border: none;
+}
+
+.horizontalContainer {
+  max-height: 420px;
+  max-width: 530px;
+  height: 420px;
+  width: 530px;
+}
+
+.verticalContainer {
+  max-width: 420px;
+  max-height: 530px;
+  width: 420px;
+  height: 530px;
+}
+
+.btnContainer {
+  display: flex;
+  justify-content: flex-end;
+  height: 30px;
+}
+
+.btnContainer button {
+  background: var(--p3-color);
+  color: white;
+  width: 45px;
+  border: none;
+  border-radius: 29px;
+  height: 26px;
+}
+
+.btnContainer button:hover {
+  cursor: pointer;
+}
+
+.content {
+  height: calc(100% - 30px);
+}
