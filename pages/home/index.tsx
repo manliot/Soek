@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Header from "../../components/header";
-import { Product } from '@/components/productCard/Product.interface';
+import { Product } from '@/types/Product.interface';
 import ProductCard from "../../components/productCard";
 import { HomeProps } from "./Home.interface";
 import styles from "./Home.module.css";

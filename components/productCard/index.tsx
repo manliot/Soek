@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Product } from "./Product.interface";
+import { Product } from "../../types/Product.interface";
 import styles from "./ProductCard.module.css";
 import { getCurrencyNumber } from "../../services/formatServices/numberFormat";
 const defaultProduct: Product = {
