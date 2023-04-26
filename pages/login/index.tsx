@@ -4,15 +4,16 @@ import Image from "next/image";
 import GoogleIcon from "../../assets/svg/GoogleIcon";
 import { LoginWithGoogle } from "../../services/firebase/googleAuth";
 import { LoginUser } from "../../types/User.interface";
-import { useRouter } from 'next/router'
+import { useNavigation } from '../../customHooks/navigation'
 
 export default function Login() {
-  const router = useRouter()
+  const { navigateTo } = useNavigation()
 
   const handleLoginClick = async (e) => {
     e.preventDefault()
     const user: LoginUser = await LoginWithGoogle()
-    router.push('/home')
+    navigateTo('/home')
+
     if (user)
       window.alert(`Bienvenido ${user.user.displayName} !`)
   }
