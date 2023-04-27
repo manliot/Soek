@@ -1,0 +1,36 @@
+.form {
+  display: grid;
+  grid-template-areas:
+    "left right"
+    "btn btn";
+  column-gap: 54px;
+  row-gap: 44px;
+}
+
+.column {
+  display: grid;
+  row-gap: 17px;
+}
+
+.left {
+  grid-area: left;
+}
+
+.right {
+  grid-area: right;
+}
+
+.btn {
+  grid-area: btn;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn button {
+  padding: 6px 32px;
+  border: none;
+  border-radius: 100px;
+  background: var(--p3-color);
+  color: white;
+}
