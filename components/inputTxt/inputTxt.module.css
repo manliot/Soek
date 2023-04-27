@@ -10,3 +10,7 @@
 .formItem::placeholder {
   color: #9d9b9b;
 }
+
+.formItem:disabled {
+  background-color: #e6e6e6;
+}

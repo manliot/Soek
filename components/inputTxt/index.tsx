@@ -4,12 +4,13 @@ import styles from './inputTxt.module.css'
 interface InputTextProps {
   name: string;
   placeholder: string;
-  value: string;
+  value: string | number;
   options?: string[];
+  disabled?: boolean;
   onChange: (value: string) => void;
 }
 
-export function InputText({ name, value, placeholder, options, onChange }: InputTextProps) {
+export function InputText({ name, value, placeholder, options, disabled = false, onChange }: InputTextProps) {
   const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     onChange(event.target.value);
   };
@@ -22,6 +23,7 @@ export function InputText({ name, value, placeholder, options, onChange }: Input
             name={name}
             value={value}
             onChange={handleChange}
+            disabled={disabled}
           >
             {options.map((option) => (
               <option key={option} value={option}>
@@ -38,6 +40,7 @@ export function InputText({ name, value, placeholder, options, onChange }: Input
             value={value}
             onChange={handleChange}
             placeholder={placeholder}
+            disabled={disabled}
           />
         )}
     </div>
