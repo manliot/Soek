@@ -1,7 +1,14 @@
+import { ProductForm } from "../productForm";
 
 
-export default function AddProduct() {
+export function AddProduct() {
+  const handleSubmit = (data) => {
+    console.log('add', data);
+  }
   return (
-    <div>AddProduct</div>
+    <ProductForm
+      action="add"
+      onSubmitAction={handleSubmit}
+    />
   )
 }

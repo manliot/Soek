@@ -1,6 +1,13 @@
+import { ProductForm } from "../productForm";
 
-export default function updateProduct() {
+export function UpdateProduct() {
+  const handleSubmit = (data) => {
+    console.log('update', data);
+  }
   return (
-    <div>updateProduct</div>
+    <ProductForm
+      action="update"
+      onSubmitAction={handleSubmit}
+    />
   )
 }

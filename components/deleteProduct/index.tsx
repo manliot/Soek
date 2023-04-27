@@ -1,7 +1,14 @@
+import { ProductForm } from "../productForm";
 
-
-export default function deteleProduct() {
+export function DeleteProduct() {
+  const handleSubmit = (data) => {
+    console.log('delete', data);
+  }
   return (
-    <div>deteleProduct</div>
+    <ProductForm
+      action="delete"
+      onSubmitAction={handleSubmit}
+      disabledInputs={['brand', 'price', 'aisle', 'url_img']}
+    />
   )
 }
