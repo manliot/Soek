@@ -1,4 +1,4 @@
-
+import styles from "./Config.module.css";
 import Header from "@/components/header";
 import ConfigSidebar from "@/components/configSidebar";
 import ConfigContent from "@/components/configContent";
@@ -9,9 +9,12 @@ export default function Config() {
   return (
     <SideBarContextProvider>
       <Header />
-      <ConfigSidebar />
-      <ConfigContent />
-
+      <main className={styles.main}>
+          <ConfigSidebar />
+        <div className={styles.contentContainer}>
+          <ConfigContent />
+        </div>
+      </main>
     </SideBarContextProvider>
   )
 }
