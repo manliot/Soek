@@ -21,7 +21,6 @@ const mapUserFromFirebaseAuthToUser = (user: User): User => {
 
 export const onAuthStateChanged = (onChange) => {
   return auth.onAuthStateChanged(user => {
-    console.log('user', user)
     const normalizedUser = user
       ? mapUserFromFirebaseAuthToUser(user)
       : {} as User
@@ -43,11 +42,11 @@ export const LoginWithGoogle = async () => {
 
 /* const user: LoginUser = await new Promise(async (resolve, reject) => {
   await signInWithPopup(auth, provider)
-    .then(result => {
-      const credential = GoogleAuthProvider.credentialFromResult(result);
-      const token = credential?.accessToken || '';
-
-      const user: User = {
+  .then(result => {
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential?.accessToken || '';
+    
+    const user: User = {
         'displayName': replaceEmpty(result.user.displayName),
         'email': replaceEmpty(result.user.email),
         'uid': replaceEmpty(result.user.uid),
@@ -55,17 +54,18 @@ export const LoginWithGoogle = async () => {
       }
       resolve({ user, token });
     }).catch((error) => {
-  
+      
     });
-})
-return user; */
+  })
+  return user; */
 
 
 export const Logout = async () => {
-  await signOut(auth)
-    .then(() => {
-      alert('Salió exitosamente. Vuelve pronto') /// alertar en un toast
-    }).catch((error) => {
-      console.log(error)
-    });
+  try {
+    await signOut(auth)
+  } catch (error) {
+    console.log(error)
+    //TOAST
+  }
+
 }
