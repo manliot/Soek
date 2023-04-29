@@ -40,24 +40,6 @@ export const LoginWithGoogle = async () => {
   }
 }
 
-/* const user: LoginUser = await new Promise(async (resolve, reject) => {
-  await signInWithPopup(auth, provider)
-  .then(result => {
-    const credential = GoogleAuthProvider.credentialFromResult(result);
-    const token = credential?.accessToken || '';
-    
-    const user: User = {
-        'displayName': replaceEmpty(result.user.displayName),
-        'email': replaceEmpty(result.user.email),
-        'uid': replaceEmpty(result.user.uid),
-        'photoURL': replaceEmpty(result.user.photoURL)
-      }
-      resolve({ user, token });
-    }).catch((error) => {
-      
-    });
-  })
-  return user; */
 
 
 export const Logout = async () => {
