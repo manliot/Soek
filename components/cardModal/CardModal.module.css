@@ -51,3 +51,7 @@
 .content {
   height: calc(100% - 30px);
 }
+
+.hide {
+  display: none;
+}
