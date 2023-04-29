@@ -4,6 +4,7 @@ import CardModal from "@/components/cardModal";
 import Image from "next/image";
 import GoogleIcon from "../../assets/svg/GoogleIcon";
 import { LoginWithGoogle } from "../../services/firebase/googleAuth";
+import { toastMessage } from "../../services/toast/toast";
 import { useNavigation } from '../../customHooks/navigation'
 
 import { useUser } from "../../customHooks/useUser";
@@ -15,10 +16,16 @@ export default function Login() {
 
   const handleLoginClick = async (e) => {
     e.preventDefault()
+
     await LoginWithGoogle()
     navigateTo('/home')
-    if (user)
-      window.alert(`Bienvenido ${user.displayName} !`)
+
+    const toastOptions = {
+      icon: '👋'
+    }
+    user
+      ? toastMessage('success', `Bienvenid@ ${user.displayName} !`, toastOptions)
+      : toastMessage('error', `No se pudo iniciar sesión`)
   }
 
   return (
