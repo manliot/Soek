@@ -24,6 +24,10 @@
     grid-gap: 19px;
 }
 
+.interfaceIconContainer a {
+    text-decoration: none;
+}
+
 .SearchBarContainer {
     max-width: 820px;
 }
