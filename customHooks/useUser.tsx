@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { onAuthStateChanged } from '../services/firebase/googleAuth'
 import { User } from '../types/User.interface'
 export const USER_STATES = {
-  NOT_LOGGED: null,
+  NOT_LOGGED: {},
   NOT_KNOWN: undefined,
 }
 

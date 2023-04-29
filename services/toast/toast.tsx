@@ -2,7 +2,7 @@ import toast from "react-hot-toast";
 import { Toast } from "react-hot-toast";
 
 const initialOptions: Partial<Pick<Toast, "id" | "icon" | "duration" | "ariaProps" | "className" | "style" | "position" | "iconTheme">> = {
-  duration: 2000,
+  duration: 3000,
   position: 'top-center',
 }
 
