@@ -1,7 +1,6 @@
 import { auth, app } from './client'
 import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import { User, LoginUser } from "../../types/User.interface";
-const provider = new GoogleAuthProvider();
 
 const replaceEmpty = (value: string | null): string => {
   if (value)
@@ -9,35 +8,57 @@ const replaceEmpty = (value: string | null): string => {
   return ''
 }
 
-export const LoginWithGoogle = async (): Promise<LoginUser> => {
-  const user: LoginUser = await new Promise(async (resolve, reject) => {
-    await signInWithPopup(auth, provider)
-      .then(result => {
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential?.accessToken || '';
+const mapUserFromFirebaseAuthToUser = (user: User): User => {
+  const { displayName, email, photoURL, uid } = user
 
-        const user: User = {
-          'displayName': replaceEmpty(result.user.displayName),
-          'email': replaceEmpty(result.user.email),
-          'uid': replaceEmpty(result.user.uid),
-          'photoURL': replaceEmpty(result.user.photoURL)
-        }
-        resolve({ user, token });
-      }).catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        const credential = error.credential;
-
-        console.log({ errorCode, errorMessage, email, credential });
-        reject({ errorCode, errorMessage, email, credential });
-      });
-  })
-  return user;
+  return {
+    displayName,
+    email,
+    photoURL,
+    uid
+  }
 }
+
+export const onAuthStateChanged = (onChange) => {
+  return auth.onAuthStateChanged(user => {
+    console.log('user', user)
+    const normalizedUser = user
+      ? mapUserFromFirebaseAuthToUser(user)
+      : {} as User
+    onChange(normalizedUser)
+  })
+}
+
+
+export const LoginWithGoogle = async () => {
+  try {
+    const googleProvider = new GoogleAuthProvider();
+    const result = await signInWithPopup(auth, googleProvider)
+    return result
+  } catch (error) {
+    console.log(error)
+    //TOAST
+  }
+}
+
+/* const user: LoginUser = await new Promise(async (resolve, reject) => {
+  await signInWithPopup(auth, provider)
+    .then(result => {
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential?.accessToken || '';
+
+      const user: User = {
+        'displayName': replaceEmpty(result.user.displayName),
+        'email': replaceEmpty(result.user.email),
+        'uid': replaceEmpty(result.user.uid),
+        'photoURL': replaceEmpty(result.user.photoURL)
+      }
+      resolve({ user, token });
+    }).catch((error) => {
+  
+    });
+})
+return user; */
 
 
 export const Logout = async () => {

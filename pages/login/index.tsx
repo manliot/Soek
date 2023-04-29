@@ -1,27 +1,30 @@
+import { useState } from 'react'
 import styles from "./Login.module.css";
 import CardModal from "@/components/cardModal";
 import Image from "next/image";
 import GoogleIcon from "../../assets/svg/GoogleIcon";
 import { LoginWithGoogle } from "../../services/firebase/googleAuth";
-import { LoginUser } from "../../types/User.interface";
 import { useNavigation } from '../../customHooks/navigation'
+
+import { useUser } from "../../customHooks/useUser";
 
 export default function Login() {
   const { navigateTo } = useNavigation()
+  const [showFrom, setshowFrom] = useState(true)
+  const user = useUser()
 
   const handleLoginClick = async (e) => {
     e.preventDefault()
-    const user: LoginUser = await LoginWithGoogle()
+    await LoginWithGoogle()
     navigateTo('/home')
-
     if (user)
-      window.alert(`Bienvenido ${user.user.displayName} !`)
+      window.alert(`Bienvenido ${user.displayName} !`)
   }
 
   return (
     <>
       <main className={styles.mainContainer}>
-        <CardModal orientation="vertical" btnIcon="close">
+        <CardModal orientation="vertical" btnIcon="back" show={showFrom} changeShow={(message) => { console.log(message) }}>
           <div className={styles.modalContent}>
             <Image
               src={require('../../assets/png/Logo-circular-SOEK.png')}
