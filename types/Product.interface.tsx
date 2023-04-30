@@ -7,6 +7,11 @@ export interface Product {
   url_img: string;
 }
 
+export interface BagProduct {
+  product: Product;
+  quantity: number;
+}
+
 export interface ProductToAdd {
   name: string;
   brand: string;

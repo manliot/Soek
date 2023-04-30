@@ -3,10 +3,13 @@ import { InputTextNumber } from "@/components/inputTxtNumber";
 import { ProductForm, ProductFormProps, Product, ProductToAdd } from "../../types/Product.interface";
 import styles from './productForm.module.css'
 import { InputImg } from "../inputImg";
+import { useProductContext } from '@/context/products/productContext';
 
 
 
 export function ProductForm({ product, disabledInputs, action, onSubmitAction }: ProductFormProps) {
+  const { dataProducts } = useProductContext();
+
   const emptyProduct: ProductToAdd = {
     name: '',
     brand: '',
@@ -48,7 +51,7 @@ export function ProductForm({ product, disabledInputs, action, onSubmitAction }:
             name="name"
             placeholder="Nombre del producto"
             value={formValues.name}
-            options={options}
+            options={dataProducts.map(product => product.name)}
             disabled={disabledInputs?.includes('name') || false}
             onChange={(value: string | number) => handleInputChange('name', value)}
           />
