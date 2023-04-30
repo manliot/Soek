@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import styles from './configSidebar.module.css'
+import styles from './ConfigSidebar.module.css'
 import { SidebarContext } from "@/context/sidebar/sideBarContext";
 import { Option } from "./ConfigSidebar.interface";
 
