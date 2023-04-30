@@ -15,7 +15,7 @@ export function InputText({ name, value, placeholder, options, disabled = false,
     onChange(event.target.value);
   };
   return (
-    <div>
+    <>
       {options
         ? (
           <select
@@ -43,6 +43,6 @@ export function InputText({ name, value, placeholder, options, disabled = false,
             disabled={disabled}
           />
         )}
-    </div>
+    </>
   )
 }
