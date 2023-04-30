@@ -1,7 +1,7 @@
 import { firestore } from "../../../services/firebase/admin";
 import { AisleDB } from "@/types/Aisle.interface";
 
-export default async function getAllAisles(req, res) {
+/* export default async function getAllAisles(req, res) {
   try {
     const aislesData: AisleDB[] = []
     const aisles = await firestore
@@ -13,4 +13,4 @@ export default async function getAllAisles(req, res) {
     res.status(404)
     res.json({ error })
   }
-}
+} */

@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, ReactNode } from "react";
 import { Option } from "@/components/configSidebar/ConfigSidebar.interface";
 import AddIcon from "@/assets/svg/AddIcon";
 import UpdateIcon from "@/assets/svg/UpdateIcon";
@@ -30,7 +30,7 @@ const defaultValues: SidebarContextType = {
 
 export const SidebarContext = createContext(defaultValues)
 
-export const SideBarContextProvider = ({ children }) => {
+export const SideBarContextProvider = ({ children }: { children: ReactNode }) => {
   const [activeOption, setActiveOption] = useState(OPTIONS[0]);
   return (
     <SidebarContext.Provider value={{

@@ -1,4 +1,4 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, ReactNode } from "react";
 import { AisleDB } from "@/types/Aisle.interface";
 
 interface AisleContextProps {
@@ -8,7 +8,7 @@ interface AisleContextProps {
 
 export const AisleContext = createContext({} as AisleContextProps)
 
-export const AisleProvider = ({ children }) => {
+export const AisleProvider = ({ children }: { children: ReactNode }) => {
   const [aisles, setAisles] = useState<AisleDB[]>([]);
 
   return (
