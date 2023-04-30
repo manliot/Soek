@@ -43,6 +43,7 @@ export const LoginWithGoogle = (): Promise<boolean> => {
       })
       .catch(err => {
         toastMessage('error', `No se pudo iniciar sesión`)
+        console.log('err', err)
         reject(false)
       })
   })
