@@ -1,7 +1,7 @@
 import { ChangeEvent, useState, useRef } from 'react'
 import Image from 'next/image'
 import styles from './inputImg.module.css'
-import ImportIcon from '../../assets/svg/ImportIcon'
+import { ImportIcon } from '../../assets/svg/ImportIcon'
 
 interface InputImgProps {
   value: string;

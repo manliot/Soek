@@ -8,7 +8,7 @@ import { useNavigation } from '../../customHooks/navigation'
 
 import { useUser } from "../../customHooks/useUser";
 
-export function Login() {
+export default function Login() {
   const { navigateTo, navigateBack } = useNavigation()
   const [showFrom, setshowFrom] = useState(true)
   const user = useUser()
