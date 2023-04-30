@@ -3,7 +3,7 @@ import { InputTextNumber } from "@/components/inputTxtNumber";
 import { ProductForm, ProductFormProps, Product, ProductToAdd } from "../../types/Product.interface";
 import styles from './productForm.module.css'
 import { InputImg } from "../inputImg";
-import { addProduct } from "../../services/firebase/products";
+
 
 
 export function ProductForm({ product, disabledInputs, action, onSubmitAction }: ProductFormProps) {
@@ -30,7 +30,6 @@ export function ProductForm({ product, disabledInputs, action, onSubmitAction }:
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmitAction(formValues);
-    addProduct(formValues)
   };
 
   const options = ['Frutas', 'Verduras', 'Lácteos', 'Carnes'];
