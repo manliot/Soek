@@ -37,7 +37,7 @@ export function InputImg({ value, disabled = false, onChange }: InputImgProps) {
           style={{ objectFit: 'contain' }}
         />
         <button
-          className={styles.importBtn}
+          className={`${styles.importBtn} ${disabled ? styles.disabledBtn : ''}`}
           onClick={() => { inputRef.current?.click() }}
           disabled={disabled}
         >

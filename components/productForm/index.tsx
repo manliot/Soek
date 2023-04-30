@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { InputText } from "@/components/inputTxt";
+import { InputTextNumber } from "@/components/inputTxtNumber";
 import { ProductForm, ProductFormProps, Product } from "../../types/Product.interface";
 import styles from './productForm.module.css'
+import { InputImg } from "../inputImg";
 
 
 
@@ -10,7 +11,7 @@ export function ProductForm({ product, disabledInputs, action, onSubmitAction }:
     id: '',
     name: '',
     brand: '',
-    price: 0,
+    price: '',
     aisle: '',
     url_img: '',
   }
@@ -42,7 +43,8 @@ export function ProductForm({ product, disabledInputs, action, onSubmitAction }:
         className={`${styles.left} ${styles.column}`}
       >
         {action === 'update' || action === 'delete'
-          ? <InputText
+          ? <InputTextNumber
+            type='text'
             name="name"
             placeholder="Nombre del producto"
             value={formValues.name}
@@ -50,28 +52,32 @@ export function ProductForm({ product, disabledInputs, action, onSubmitAction }:
             disabled={disabledInputs?.includes('name') || false}
             onChange={(value: string | number) => handleInputChange('name', value)}
           />
-          : <InputText
+          : <InputTextNumber
+            type='text'
             name="name"
             placeholder="Nombre del producto"
             value={formValues.name}
             disabled={disabledInputs?.includes('name') || false}
             onChange={(value: string | number) => handleInputChange('name', value)}
           />}
-        <InputText
+        <InputTextNumber
+          type='text'
           name="brand"
           placeholder="Nombre de la marca"
           disabled={disabledInputs?.includes('brand') || false}
           value={formValues.brand}
           onChange={(value: string | number) => handleInputChange('brand', value)}
         />
-        <InputText
+        <InputTextNumber
+          type='number'
           name="price"
           disabled={disabledInputs?.includes('price') || false}
           placeholder="Precio del producto"
           value={formValues.price}
           onChange={(value: string | number) => handleInputChange('price', value)}
         />
-        <InputText
+        <InputTextNumber
+          type='text'
           name="aisle"
           disabled={disabledInputs?.includes('aisle') || false}
           placeholder="Nombre del pasillo"
@@ -83,11 +89,9 @@ export function ProductForm({ product, disabledInputs, action, onSubmitAction }:
       <div
         className={`${styles.right} ${styles.column}`}
       >
-        <InputText
-          name="url_img"
-          placeholder="url de la imagen"
+        <InputImg
           disabled={disabledInputs?.includes('url_img') || false}
-          value={formValues.price}
+          value={formValues.url_img}
           onChange={(value: string | number) => handleInputChange('url_img', value)}
         />
       </div>

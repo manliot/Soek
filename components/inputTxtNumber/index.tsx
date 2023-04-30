@@ -2,6 +2,7 @@ import { ChangeEvent } from 'react'
 import styles from './inputTxt.module.css'
 
 interface InputTextProps {
+  type: string;
   name: string;
   placeholder: string;
   value: string | number;
@@ -10,7 +11,7 @@ interface InputTextProps {
   onChange: (value: string) => void;
 }
 
-export function InputText({ name, value, placeholder, options, disabled = false, onChange }: InputTextProps) {
+export function InputTextNumber({ type, name, value, placeholder, options, disabled = false, onChange }: InputTextProps) {
   const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     onChange(event.target.value);
   };
@@ -25,6 +26,7 @@ export function InputText({ name, value, placeholder, options, disabled = false,
             onChange={handleChange}
             disabled={disabled}
           >
+            <option value="" selected>{placeholder}</option>
             {options.map((option) => (
               <option key={option} value={option}>
                 {option}
@@ -35,7 +37,7 @@ export function InputText({ name, value, placeholder, options, disabled = false,
         : (
           <input
             className={styles.formItem}
-            type="text"
+            type={type}
             name={name}
             value={value}
             onChange={handleChange}

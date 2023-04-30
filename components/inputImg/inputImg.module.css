@@ -25,3 +25,7 @@
 .importBtn p {
   margin-left: 10px;
 }
+
+.disabledBtn {
+  background-color: #d7a77e;
+}
