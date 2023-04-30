@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.img {
+  border-radius: 10px;
+  background: white;
+  box-sizing: border-box;
+}
+
+.importBtn {
+  background-color: var(--p2-color);
+  border: none;
+  display: flex;
+  color: white;
+  align-items: center;
+  justify-content: center;
+  border-radius: 26px;
+  padding: 8px 14px;
+  margin-top: 10px;
+}
+
+.importBtn p {
+  margin-left: 10px;
+}
