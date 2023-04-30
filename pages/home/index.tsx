@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import Head from 'next/head'
+import { GetServerSidePropsContext } from 'next';
 import Header from "../../components/header";
 import { Product } from '@/types/Product.interface';
 import { AisleDB } from '@/types/Aisle.interface';
@@ -41,7 +42,7 @@ export default function Home({ products, aisles }: HomeProps) {
 	)
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
 	//get Products
 	const productData: Product[] = []
 	const productsRef = collection(db, "product")

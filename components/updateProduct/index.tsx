@@ -1,7 +1,8 @@
 import { ProductForm } from "../productForm";
+import { ProductToAdd } from "../../types/Product.interface";
 
 export function UpdateProduct() {
-  const handleSubmit = (data) => {
+  const handleSubmit = (data: ProductToAdd) => {
     console.log('update', data);
   }
   return (

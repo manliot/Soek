@@ -32,7 +32,7 @@ export function ProductForm({ product, disabledInputs, action, onSubmitAction }:
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSubmitAction(formValues);
   };

@@ -20,10 +20,10 @@ const mapUserFromFirebaseAuthToUser = (user: User): User => {
   }
 }
 
-export const onAuthStateChanged = (onChange) => {
+export const onAuthStateChanged = (onChange: (user: User) => void) => {
   return auth.onAuthStateChanged(user => {
     const normalizedUser = user
-      ? mapUserFromFirebaseAuthToUser(user)
+      ? mapUserFromFirebaseAuthToUser(user as User)
       : {} as User
     onChange(normalizedUser)
   })

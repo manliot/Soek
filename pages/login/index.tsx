@@ -13,7 +13,7 @@ export default function Login() {
   const [showFrom, setshowFrom] = useState(true)
   const user = useUser()
 
-  const handleLoginClick = async (e) => {
+  const handleLoginClick = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()
 
     LoginWithGoogle()
@@ -22,7 +22,7 @@ export default function Login() {
       })
   }
 
-  const handleLogoutClick = async (e) => {
+  const handleLogoutClick = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()
     Logout()
       .then(res => {
