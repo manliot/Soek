@@ -8,7 +8,6 @@ export default function ConfigSidebar() {
   const { activeOption, setActiveOption, OPTIONS } = useContext(SidebarContext)
 
   const handleOptionClick = async (option: Option) => {
-    console.log(option)
     setActiveOption(option);
   };
 

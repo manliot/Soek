@@ -10,7 +10,7 @@ export default function Config() {
     <SideBarContextProvider>
       <Header />
       <main className={styles.main}>
-          <ConfigSidebar />
+        <ConfigSidebar />
         <div className={styles.contentContainer}>
           <ConfigContent />
         </div>

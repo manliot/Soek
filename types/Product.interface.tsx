@@ -2,15 +2,30 @@ export interface Product {
   id: string;
   name: string;
   brand: string;
-  price: number;
+  price: number | string;
   aisle: string;
   url_img: string;
 }
 
-export interface ProductForm extends Omit<Product, 'id'> { }
+export interface BagProduct {
+  product: Product;
+  quantity: number;
+}
+
+export interface ProductToAdd {
+  name: string;
+  brand: string;
+  price: number | string;
+  aisle: string;
+  url_img: string;
+  file_img: File;
+}
+
+export interface ProductForm extends Omit<ProductToAdd, 'id'> { }
+
 export interface ProductFormProps {
-  product?: Product;
+  product?: ProductToAdd;
   disabledInputs?: string[];
   action: 'add' | 'update' | 'delete';
-  onSubmitAction: (data: Product) => void;
+  onSubmitAction: (data: ProductToAdd) => void;
 }

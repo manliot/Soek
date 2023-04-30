@@ -7,10 +7,9 @@ import { SidebarContext } from "@/context/sidebar/sideBarContext";
 export default function ConfigContent() {
   const { activeOption } = useContext(SidebarContext)
   return (
-    <div>{OPTIONS[activeOption.option]}</div>
+    <>{OPTIONS[activeOption.option]}</>
   )
 }
-
 
 const OPTIONS: { [key: string]: JSX.Element } = {
   'Ingresar Producto': <AddProduct />,

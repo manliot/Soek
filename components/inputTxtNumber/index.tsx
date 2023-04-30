@@ -2,20 +2,21 @@ import { ChangeEvent } from 'react'
 import styles from './inputTxt.module.css'
 
 interface InputTextProps {
+  type: string;
   name: string;
   placeholder: string;
   value: string | number;
-  options?: string[];
+  options?: Array<{ name: string, id: string }>;
   disabled?: boolean;
   onChange: (value: string) => void;
 }
 
-export function InputText({ name, value, placeholder, options, disabled = false, onChange }: InputTextProps) {
+export function InputTextNumber({ type, name, value, placeholder, options, disabled = false, onChange }: InputTextProps) {
   const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     onChange(event.target.value);
   };
   return (
-    <div>
+    <>
       {options
         ? (
           <select
@@ -25,9 +26,10 @@ export function InputText({ name, value, placeholder, options, disabled = false,
             onChange={handleChange}
             disabled={disabled}
           >
+            <option value="" selected>{placeholder}</option>
             {options.map((option) => (
-              <option key={option} value={option}>
-                {option}
+              <option key={option.id} value={option.id}>
+                {option.name}
               </option>
             ))}
           </select>
@@ -35,7 +37,7 @@ export function InputText({ name, value, placeholder, options, disabled = false,
         : (
           <input
             className={styles.formItem}
-            type="text"
+            type={type}
             name={name}
             value={value}
             onChange={handleChange}
@@ -43,6 +45,6 @@ export function InputText({ name, value, placeholder, options, disabled = false,
             disabled={disabled}
           />
         )}
-    </div>
+    </>
   )
 }

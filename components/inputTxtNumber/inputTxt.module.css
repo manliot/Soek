@@ -14,3 +14,7 @@
 .formItem:disabled {
   background-color: #e6e6e6;
 }
+
+.formItem option p {
+  color: #9d9b9b;
+}

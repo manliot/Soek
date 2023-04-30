@@ -17,3 +17,16 @@ export const toastMessage = (
   if (type === 'error')
     return toast.error(message, options)
 };
+
+export const toastLoading = (
+  promise: Promise<any>,
+  loadingMsg: string = 'Cargando...',
+  successMsg: string = `Listo!`,
+  errorMsg: string = 'ocurrió un error, intenta de nuevo.'
+) => {
+  return toast.promise(promise, {
+    loading: loadingMsg,
+    success: (res) => successMsg,
+    error: (err) => errorMsg
+  })
+}
