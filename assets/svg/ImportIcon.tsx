@@ -1,4 +1,5 @@
-const SvgComponent = (props) => (
+interface Props extends React.SVGProps<SVGSVGElement> { }
+const SvgComponent = (props: Props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={24}
