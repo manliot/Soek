@@ -6,7 +6,7 @@ interface InputTextProps {
   name: string;
   placeholder: string;
   value: string | number;
-  options?: string[];
+  options?: Array<{ name: string, id: string }>;
   disabled?: boolean;
   onChange: (value: string) => void;
 }
@@ -28,8 +28,8 @@ export function InputTextNumber({ type, name, value, placeholder, options, disab
           >
             <option value="" selected>{placeholder}</option>
             {options.map((option) => (
-              <option key={option} value={option}>
-                {option}
+              <option key={option.id} value={option.id}>
+                {option.name}
               </option>
             ))}
           </select>

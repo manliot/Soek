@@ -4,11 +4,13 @@ import { ProductForm, ProductFormProps, Product, ProductToAdd } from "../../type
 import styles from './productForm.module.css'
 import { InputImg } from "../inputImg";
 import { useProductContext } from '@/context/products/productContext';
+import { useAisleContext } from '@/context/aisles/aislesContext';
 
 
 
 export function ProductForm({ product, disabledInputs, action, onSubmitAction }: ProductFormProps) {
   const { dataProducts } = useProductContext();
+  const { dataAisles } = useAisleContext();
 
   const emptyProduct: ProductToAdd = {
     name: '',
@@ -51,7 +53,12 @@ export function ProductForm({ product, disabledInputs, action, onSubmitAction }:
             name="name"
             placeholder="Nombre del producto"
             value={formValues.name}
-            options={dataProducts.map(product => product.name)}
+            options={
+              dataProducts.map(product => {
+                const option: { name: string, id: string } = { name: product.name, id: product.id }
+                return option
+              })
+            }
             disabled={disabledInputs?.includes('name') || false}
             onChange={(value: string | number) => handleInputChange('name', value)}
           />
@@ -85,7 +92,10 @@ export function ProductForm({ product, disabledInputs, action, onSubmitAction }:
           disabled={disabledInputs?.includes('aisle') || false}
           placeholder="Nombre del pasillo"
           value={formValues.aisle}
-          options={options}
+          options={dataAisles.map(aisle => {
+            const option: { name: string, id: string } = { name: aisle.name, id: aisle.id }
+            return option
+          })}
           onChange={(value: string | number) => handleInputChange('aisle', value)}
         />
       </div>

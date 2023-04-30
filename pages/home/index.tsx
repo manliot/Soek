@@ -2,19 +2,23 @@ import { useEffect } from "react";
 import Head from 'next/head'
 import Header from "../../components/header";
 import { Product } from '@/types/Product.interface';
+import { AisleDB } from '@/types/Aisle.interface';
 import ProductCard from "../../components/productCard";
 import { HomeProps } from "./Home.interface";
 import styles from "./Home.module.css";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../services/firebase/client";
 import { useProductContext } from '@/context/products/productContext';
+import { useAisleContext } from '@/context/aisles/aislesContext';
 
-export default function Home({ products }: HomeProps) {
+export default function Home({ products, aisles }: HomeProps) {
 	const { updateProductStatus, dataProducts } = useProductContext();
+	const { updateAislesStatus } = useAisleContext();
 
 	useEffect(() => {
 		const updateProducts = () => {
 			updateProductStatus(products)
+			updateAislesStatus(aisles)
 			console.log('rendering')
 		}
 		updateProducts()
@@ -58,15 +62,38 @@ export async function getServerSideProps(context) {
 		productData.push(productToPush)
 	})
 
+	//get Aisles
+	const aisleData: AisleDB[] = []
+	const aislesRef = collection(db, "aisle")
+	const aisles = await getDocs(aislesRef)
+
+	aisles.forEach(aisle => {
+		const { name, aisleNumber, urlPhoto } = aisle.data()
+		const aisleToPush: AisleDB = {
+			id: aisle.id,
+			name,
+			aisleNumber: Number(aisleNumber),
+			urlPhoto
+		}
+
+		aisleData.push(aisleToPush)
+	})
+	console.log(aisles)
 	if (!products) {
+		return {
+			notFound: true,
+		}
+	}
+
+	if (!aisles) {
 		return {
 			notFound: true,
 		}
 	}
 	return {
 		props: {
-			products: productData
+			products: productData,
+			aisles: aisleData,
 		}, // will be passed to the page component as props
 	}
 }
-
