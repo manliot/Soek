@@ -19,7 +19,6 @@ export default function Home({ products, aisles }: HomeProps) {
 		const updateProducts = () => {
 			updateProductStatus(products)
 			updateAislesStatus(aisles)
-			console.log('rendering')
 		}
 		updateProducts()
 	}, [])
@@ -71,14 +70,15 @@ export async function getServerSideProps(context) {
 		const { name, aisleNumber, urlPhoto } = aisle.data()
 		const aisleToPush: AisleDB = {
 			id: aisle.id,
-			name,
+			name: `${Number(aisleNumber)}: ${name}`,
 			aisleNumber: Number(aisleNumber),
 			urlPhoto
 		}
-
 		aisleData.push(aisleToPush)
 	})
-	console.log(aisles)
+
+	aisleData.sort((a, b) => a.aisleNumber - b.aisleNumber)
+
 	if (!products) {
 		return {
 			notFound: true,
