@@ -1,0 +1,20 @@
+.formItem {
+  width: 300px;
+  height: 48px;
+  border: none;
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 15px
+}
+
+.formItem::placeholder {
+  color: #9d9b9b;
+}
+
+.formItem:disabled {
+  background-color: #e6e6e6;
+}
+
+.formItem option p {
+  color: #9d9b9b;
+}
