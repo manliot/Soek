@@ -1,26 +1,26 @@
 import { useState } from "react";
 import { InputTextNumber } from "@/components/inputTxtNumber";
-import { ProductForm, ProductFormProps, Product } from "../../types/Product.interface";
+import { ProductForm, ProductFormProps, Product, ProductToAdd } from "../../types/Product.interface";
 import styles from './productForm.module.css'
 import { InputImg } from "../inputImg";
-
+import { addProduct } from "../../services/firebase/products";
 
 
 export function ProductForm({ product, disabledInputs, action, onSubmitAction }: ProductFormProps) {
-  const emptyProduct: Product = {
-    id: '',
+  const emptyProduct: ProductToAdd = {
     name: '',
     brand: '',
     price: '',
     aisle: '',
     url_img: '',
+    file_img: {} as File,
   }
   const initialState = product
     ? product
     : emptyProduct;
   const [formValues, setFormValues] = useState(initialState);
 
-  const handleInputChange = (fieldName: keyof ProductForm, value: string | number) => {
+  const handleInputChange = (fieldName: keyof ProductForm, value: string | number | File) => {
     setFormValues({
       ...formValues,
       [fieldName]: value
@@ -30,6 +30,7 @@ export function ProductForm({ product, disabledInputs, action, onSubmitAction }:
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmitAction(formValues);
+    addProduct(formValues)
   };
 
   const options = ['Frutas', 'Verduras', 'Lácteos', 'Carnes'];
@@ -92,7 +93,7 @@ export function ProductForm({ product, disabledInputs, action, onSubmitAction }:
         <InputImg
           disabled={disabledInputs?.includes('url_img') || false}
           value={formValues.url_img}
-          onChange={(value: string | number) => handleInputChange('url_img', value)}
+          onChange={(value: File) => handleInputChange('file_img', value)}
         />
       </div>
       <div
