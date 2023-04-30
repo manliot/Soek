@@ -6,7 +6,7 @@ import ImportIcon from '../../assets/svg/ImportIcon'
 interface InputImgProps {
   value: string;
   disabled?: boolean;
-  onChange: (value: string) => void;
+  onChange: (value: File) => void;
 }
 
 export function InputImg({ value, disabled = false, onChange }: InputImgProps) {
@@ -14,13 +14,14 @@ export function InputImg({ value, disabled = false, onChange }: InputImgProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleImgChange = (event: ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
     const file = event.target.files![0];
     const reader = new FileReader();
     if (reader) {
       reader.readAsDataURL(file);
       reader.onload = () => {
         setImgUrl(reader.result as string);
-        onChange(reader.result as string);
+        onChange(file);
       };
     }
   };
@@ -37,6 +38,7 @@ export function InputImg({ value, disabled = false, onChange }: InputImgProps) {
           style={{ objectFit: 'contain' }}
         />
         <button
+          type='button'
           className={`${styles.importBtn} ${disabled ? styles.disabledBtn : ''}`}
           onClick={() => { inputRef.current?.click() }}
           disabled={disabled}
