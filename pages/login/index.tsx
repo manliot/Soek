@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import styles from "./Login.module.css";
+import styles from "@/styles/login/Login.module.css";
 import { CardModal } from "@/components/cardModal";
 import Image from "next/image";
 import { GoogleIcon } from "../../assets/svg/GoogleIcon";
