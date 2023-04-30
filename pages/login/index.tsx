@@ -1,14 +1,14 @@
 import { useState } from 'react'
 import styles from "./Login.module.css";
-import CardModal from "@/components/cardModal";
+import { CardModal } from "@/components/cardModal";
 import Image from "next/image";
-import GoogleIcon from "../../assets/svg/GoogleIcon";
+import { GoogleIcon } from "../../assets/svg/GoogleIcon";
 import { LoginWithGoogle, Logout } from "../../services/firebase/googleAuth";
 import { useNavigation } from '../../customHooks/navigation'
 
 import { useUser } from "../../customHooks/useUser";
 
-export default function Login() {
+export function Login() {
   const { navigateTo, navigateBack } = useNavigation()
   const [showFrom, setshowFrom] = useState(true)
   const user = useUser()

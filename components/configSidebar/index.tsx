@@ -4,7 +4,7 @@ import { SidebarContext } from "@/context/sidebar/sideBarContext";
 import { Option } from "./ConfigSidebar.interface";
 
 
-export default function ConfigSidebar() {
+export function ConfigSidebar() {
   const { activeOption, setActiveOption, OPTIONS } = useContext(SidebarContext)
 
   const handleOptionClick = async (option: Option) => {

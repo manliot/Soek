@@ -1,7 +1,7 @@
 import Head from 'next/head'
-import Header from "../components/header";
+import { Header } from "../components/header";
 
-export default function Home() {
+export function Home() {
   return (
     <>
       <Head>

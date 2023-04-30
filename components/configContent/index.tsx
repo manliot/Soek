@@ -4,7 +4,7 @@ import { UpdateProduct } from "../updateProduct";
 import { DeleteProduct } from "../deleteProduct";
 import { SidebarContext } from "@/context/sidebar/sideBarContext";
 
-export default function ConfigContent() {
+export function ConfigContent() {
   const { activeOption } = useContext(SidebarContext)
   return (
     <>{OPTIONS[activeOption.option]}</>

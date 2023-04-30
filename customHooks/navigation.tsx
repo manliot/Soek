@@ -16,5 +16,3 @@ export function useNavigation() {
     navigateBack,
   };
 }
-
-export default useNavigation;
