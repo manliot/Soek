@@ -1,8 +1,8 @@
 import { createContext, useState, ReactNode } from "react";
 import { Option } from "@/components/configSidebar/ConfigSidebar.interface";
-import AddIcon from "@/assets/svg/AddIcon";
-import UpdateIcon from "@/assets/svg/UpdateIcon";
-import DeleteIcon from "@/assets/svg/DeleteIcon";
+import { AddIcon } from "@/assets/svg/AddIcon";
+import { UpdateIcon } from "@/assets/svg/UpdateIcon";
+import { DeleteIcon } from "@/assets/svg/DeleteIcon";
 import { SidebarContextType } from "./sideBarContext.interface";
 
 

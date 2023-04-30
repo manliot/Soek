@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import styles from "./Login.module.css";
-import CardModal from "@/components/cardModal";
+import styles from "@/styles/login/Login.module.css";
+import { CardModal } from "@/components/cardModal";
 import Image from "next/image";
-import GoogleIcon from "../../assets/svg/GoogleIcon";
+import { GoogleIcon } from "../../assets/svg/GoogleIcon";
 import { LoginWithGoogle, Logout } from "../../services/firebase/googleAuth";
 import { useNavigation } from '../../customHooks/navigation'
 

@@ -2,7 +2,7 @@ import { useNavigation } from "../../customHooks/navigation";
 import styles from "./CardModal.module.css";
 import { Card } from "./CardModal.interface";
 
-export default function CardModal({ children, orientation = 'vertical', btnIcon = 'close', show = true, changeShow }: Card) {
+export function CardModal({ children, orientation = 'vertical', btnIcon = 'close', show = true, changeShow }: Card) {
   const { navigateBack } = useNavigation();
   const handleBtnClick = () => {
     btnIcon === 'back' ? navigateBack() : changeShow(false)

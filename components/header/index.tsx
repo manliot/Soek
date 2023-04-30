@@ -1,9 +1,10 @@
 import Link from "next/link";
 import styles from "./Header.module.css";
-import SearchBar from "../searchBar";
-import InterfaceIcon from "../InterfaceIcon";
+import { SearchBar } from "../searchBar";
+import { InterfaceIcon } from "../InterfaceIcon";
 import Image from "next/image";
-export default function Header() {
+
+export function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.headerContainer}>

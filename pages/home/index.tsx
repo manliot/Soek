@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import Head from 'next/head'
 import { GetServerSidePropsContext } from 'next';
-import Header from "../../components/header";
+import { Header } from "../../components/header";
 import { Product } from '@/types/Product.interface';
 import { AisleDB } from '@/types/Aisle.interface';
-import ProductCard from "../../components/productCard";
-import { HomeProps } from "./Home.interface";
-import styles from "./Home.module.css";
+import { ProductCard } from "../../components/productCard";
+import { HomeProps } from "../../types/home/Home.interface";
+import styles from "@/styles/home/Home.module.css";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../services/firebase/client";
 import { useProductContext } from '@/context/products/productContext';

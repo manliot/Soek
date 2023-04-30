@@ -11,7 +11,7 @@ const defaultProduct: Product = {
   url_img: 'https://img.freepik.com/vector-gratis/maqueta-dispositivo-digital_53876-90966.jpg?w=2000',
 }
 
-export default function ProductCard({ product = defaultProduct }: { product: Product }) {
+export function ProductCard({ product = defaultProduct }: { product: Product }) {
   return (
     <article className={styles.cardContainer}>
       <div className={styles.img}>
