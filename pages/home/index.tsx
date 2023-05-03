@@ -7,8 +7,6 @@ import { AisleDB } from '@/types/Aisle.interface';
 import { ProductCard } from "../../components/productCard";
 import { HomeProps } from "../../types/home/Home.interface";
 import styles from "@/styles/home/Home.module.css";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../services/firebase/client";
 import { useProductContext } from '@/context/products/productContext';
 import { useAisleContext } from '@/context/aisles/aislesContext';
 
