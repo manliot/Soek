@@ -48,36 +48,23 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 	let aisleData: AisleDB[] = []
 	try {
 		//get Products
-		const productsRef = collection(db, "product")
-		const products = await getDocs(productsRef)
-
-		products.forEach(product => {
-			const { aisle, name, brand, price, url_img } = product.data()
-			const productToPush: Product = {
-				id: product.id,
-				aisle,
-				name,
-				brand,
-				price,
-				url_img
-			}
-
-			productData.push(productToPush)
-		})
+		const resProducts = await fetch(`${BASE_URL}/api/product`)
+		const { data: dataProducts }: { data: Product[] } = await resProducts.json()
+		productData = [...dataProducts]
 
 		//get Aisles
-		const res = await fetch(`${BASE_URL}/api/aisle`)
-		const { data }: { data: AisleDB[] } = await res.json()
-		aisleData = [...data]
+		const resAisles = await fetch(`${BASE_URL}/api/aisle`)
+		const { data: dataAisles }: { data: AisleDB[] } = await resAisles.json()
+		aisleData = [...dataAisles]
 
+		return {
+			props: {
+				products: productData,
+				aisles: aisleData,
+			},
+		}
 	} catch (error) {
 		console.error(error)
 		return { notFound: true, }
-	}
-	return {
-		props: {
-			products: productData,
-			aisles: aisleData,
-		},
 	}
 }

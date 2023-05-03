@@ -18,7 +18,7 @@ try {
     credential: admin.credential.cert(serviceAccount)
   });
 } catch (error) {
-  console.error(error)
+  //console.error(error)
 }
 const firestore = admin.firestore()
 

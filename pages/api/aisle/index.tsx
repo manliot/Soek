@@ -2,7 +2,7 @@ import { firestore } from "../../../services/firebase/admin";
 import { AisleDB } from "@/types/Aisle.interface";
 import { NextApiRequest, NextApiResponse } from 'next'
 
-export default async function getAllAisles(req: NextApiRequest, res: NextApiResponse) {
+export default async function Aisles(req: NextApiRequest, res: NextApiResponse) {
   try {
     if (req.method === 'GET') {
       const aislesData: AisleDB[] = []
