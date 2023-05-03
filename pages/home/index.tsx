@@ -43,58 +43,41 @@ export default function Home({ products, aisles }: HomeProps) {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-	//get Products
-	const productData: Product[] = []
-	const productsRef = collection(db, "product")
-	const products = await getDocs(productsRef)
+	const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
+	let productData: Product[] = []
+	let aisleData: AisleDB[] = []
+	try {
+		//get Products
+		const productsRef = collection(db, "product")
+		const products = await getDocs(productsRef)
 
-	products.forEach(product => {
-		const { aisle, name, brand, price, url_img } = product.data()
-		const productToPush: Product = {
-			id: product.id,
-			aisle,
-			name,
-			brand,
-			price,
-			url_img
-		}
+		products.forEach(product => {
+			const { aisle, name, brand, price, url_img } = product.data()
+			const productToPush: Product = {
+				id: product.id,
+				aisle,
+				name,
+				brand,
+				price,
+				url_img
+			}
 
-		productData.push(productToPush)
-	})
+			productData.push(productToPush)
+		})
 
-	//get Aisles
-	const aisleData: AisleDB[] = []
-	const aislesRef = collection(db, "aisle")
-	const aisles = await getDocs(aislesRef)
+		//get Aisles
+		const res = await fetch(`${BASE_URL}/api/aisle`)
+		const { data }: { data: AisleDB[] } = await res.json()
+		aisleData = [...data]
 
-	aisles.forEach(aisle => {
-		const { name, aisleNumber, urlPhoto } = aisle.data()
-		const aisleToPush: AisleDB = {
-			id: aisle.id,
-			name: `${Number(aisleNumber)}: ${name}`,
-			aisleNumber: Number(aisleNumber),
-			urlPhoto
-		}
-		aisleData.push(aisleToPush)
-	})
-
-	aisleData.sort((a, b) => a.aisleNumber - b.aisleNumber)
-
-	if (!products) {
-		return {
-			notFound: true,
-		}
-	}
-
-	if (!aisles) {
-		return {
-			notFound: true,
-		}
+	} catch (error) {
+		console.error(error)
+		return { notFound: true, }
 	}
 	return {
 		props: {
 			products: productData,
 			aisles: aisleData,
-		}, // will be passed to the page component as props
+		},
 	}
 }
