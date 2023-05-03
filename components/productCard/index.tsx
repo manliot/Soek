@@ -7,7 +7,8 @@ const defaultProduct: Product = {
   name: 'Nombre del producto',
   brand: 'Marca del producto',
   price: 1000,
-  aisle: 'Categoria del producto',
+  aisle: 'Numero del pasillo',
+  aisleName: 'Nombre del pasillo',
   url_img: 'https://img.freepik.com/vector-gratis/maqueta-dispositivo-digital_53876-90966.jpg?w=2000',
 }
 

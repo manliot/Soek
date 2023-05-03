@@ -15,6 +15,7 @@ export default async function Products(req: NextApiRequest, res: NextApiResponse
         const productToPush: Product = {
           id: product.id,
           aisle,
+          aisleName: '',
           name,
           brand,
           price,
