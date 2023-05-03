@@ -1,4 +1,5 @@
 import { firestore } from "../../../services/firebase/admin";
+import { QueryDocumentSnapshot } from "firebase-admin/firestore"
 import { AisleDB } from "@/types/Aisle.interface";
 import { NextApiRequest, NextApiResponse } from 'next'
 
@@ -10,7 +11,7 @@ export default async function Aisles(req: NextApiRequest, res: NextApiResponse) 
         .collection("aisle")
         .get()
 
-      aisles.forEach(aisle => {
+      aisles.forEach((aisle: QueryDocumentSnapshot<AisleDB>) => {
         const { name, aisleNumber, urlPhoto } = aisle.data()
         const aisleToPush: AisleDB = {
           id: aisle.id,

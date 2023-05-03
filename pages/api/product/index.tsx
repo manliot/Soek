@@ -1,4 +1,5 @@
 import { firestore } from "../../../services/firebase/admin";
+import { QueryDocumentSnapshot } from "firebase-admin/firestore"
 import { Product } from "@/types/Product.interface";
 import { NextApiRequest, NextApiResponse } from 'next'
 
@@ -10,7 +11,7 @@ export default async function Products(req: NextApiRequest, res: NextApiResponse
         .collection("product")
         .get()
 
-      products.forEach(product => {
+      products.forEach((product: QueryDocumentSnapshot<Product>) => {
         const { aisle, name, brand, price, url_img } = product.data()
         const productToPush: Product = {
           id: product.id,
