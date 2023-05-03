@@ -25,9 +25,16 @@ export function ProductCard({ product = defaultProduct }: { product: Product }) 
       <div className={styles.content}>
         <p className={styles.contentBrand}><strong>{product.brand} </strong></p>
         <h3 className={styles.contentBrand}>{product.name}</h3>
-        <p>{product.aisle}</p>
+        <br></br>
+        <div className={styles.aislecontainer}>
+          <div className={styles.aisleNumber}>
+            <p>Pasillo {product.aisleName.split(':')[0]}</p>
+          </div>
+          <p>{product.aisleName.split(':')[1]}</p>
+        </div>
         <br></br>
         <p><strong>{getCurrencyNumber(Number(product.price))}</strong></p>
+
       </div>
       <button className={styles.btn}>
         Agregar

@@ -5,6 +5,7 @@ export interface Product {
   price: number | string;
   aisle: string;
   url_img: string;
+  aisleName: string;
 }
 
 export interface BagProduct {
