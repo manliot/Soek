@@ -24,7 +24,6 @@ export default async function Products(req: NextApiRequest, res: NextApiResponse
         }
         productData.push(productToPush)
       })
-      console.log(productData)
       res.status(200)
       res.json({ data: productData })
     }

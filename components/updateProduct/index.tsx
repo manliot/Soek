@@ -4,7 +4,6 @@ import { updateProduct } from "../../services/firebase/products";
 
 export function UpdateProduct() {
   const handleSubmit = (data: ProductToAdd) => {
-    console.log('update', data);
     data.price = Number(data.price)
     updateProduct(data)
   }
