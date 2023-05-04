@@ -1,9 +1,10 @@
 import { ProductForm } from "../productForm";
 import { ProductToAdd } from "../../types/Product.interface";
+import { deleteProduct } from "../../services/firebase/products";
 
 export function DeleteProduct() {
   const handleSubmit = (data: ProductToAdd) => {
-    console.log('delete', data);
+    deleteProduct(data)
   }
   return (
     <ProductForm

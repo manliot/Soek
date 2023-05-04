@@ -1,6 +1,6 @@
 import { db } from "../../services/firebase/client";
 import { toastLoading, toastMessage } from "../../services/toast/toast";
-import { collection, updateDoc, addDoc, doc } from "firebase/firestore";
+import { collection, updateDoc, addDoc, doc, deleteDoc } from "firebase/firestore";
 import { ProductToAdd } from "@/types/Product.interface";
 import { addImage, deleteImageByUrl } from "./images";
 
@@ -35,6 +35,20 @@ export const updateProduct = async (product: ProductToAdd) => {
     } else
       toastMessage('error', 'No se encontró el producto a actualizar')
 
+  } catch (error) {
+    toastMessage('error', 'Ocurrió un error, intente nuevamente')
+  }
+}
+
+
+export const deleteProduct = async (product: ProductToAdd) => {
+  try {
+    const productReference = doc(db, "product", product.id || '')
+    if (productReference) {
+      deleteImageByUrl(product.url_img)
+      await toastLoading(deleteDoc(productReference), 'Eliminando Producto...', 'Producto eliminado exitosamente', 'No se pudo eliminar el producto')
+    } else
+      toastMessage('error', 'No se encontró el producto a eliminar')
   } catch (error) {
     toastMessage('error', 'Ocurrió un error, intente nuevamente')
   }
