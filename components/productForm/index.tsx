@@ -53,7 +53,9 @@ export function ProductForm({ disabledInputs, action, onSubmitAction }: ProductF
       toastMessage('error', 'No se ha seleccionado un producto')
     } else if (action === 'add' && !formValues.file_img) {
       toastMessage('error', 'No se ha seleccionado una imagen')
-    } else if (!formValues.name || !formValues.brand || !formValues.price || !formValues.aisle || !formValues.url_img) {
+    } else if (action !== 'add' && !formValues.url_img) {
+      toastMessage('error', 'No se ha seleccionado una imagen')
+    } else if (!formValues.name || !formValues.brand || !formValues.price || !formValues.aisle) {
       toastMessage('error', 'Debe seleccionar todos los campos')
     } else {
       onSubmitAction(formValues);
