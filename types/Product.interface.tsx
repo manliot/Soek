@@ -14,18 +14,18 @@ export interface BagProduct {
 }
 
 export interface ProductToAdd {
+  id?: string;
   name: string;
   brand: string;
   price: number | string;
   aisle: string;
   url_img: string;
-  file_img: File;
+  file_img?: File;
 }
 
 export interface ProductForm extends Omit<ProductToAdd, 'id'> { }
 
 export interface ProductFormProps {
-  product?: ProductToAdd;
   disabledInputs?: string[];
   action: 'add' | 'update' | 'delete';
   onSubmitAction: (data: ProductToAdd) => void;
