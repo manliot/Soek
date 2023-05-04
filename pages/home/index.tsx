@@ -7,8 +7,6 @@ import { AisleDB } from '@/types/Aisle.interface';
 import { ProductCard } from "../../components/productCard";
 import { HomeProps } from "../../types/home/Home.interface";
 import styles from "@/styles/home/Home.module.css";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../services/firebase/client";
 import { useProductContext } from '@/context/products/productContext';
 import { useAisleContext } from '@/context/aisles/aislesContext';
 
@@ -43,58 +41,37 @@ export default function Home({ products, aisles }: HomeProps) {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-	//get Products
-	const productData: Product[] = []
-	const productsRef = collection(db, "product")
-	const products = await getDocs(productsRef)
+	const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
+	let productData: Product[] = []
+	let aisleData: AisleDB[] = []
+	try {
+		//get Products
+		let tempProductData: Product[] = []
+		const resProducts = await fetch(`${BASE_URL}/api/product`)
+		const { data: dataProducts }: { data: Product[] } = await resProducts.json()
+		tempProductData = [...dataProducts]
 
-	products.forEach(product => {
-		const { aisle, name, brand, price, url_img } = product.data()
-		const productToPush: Product = {
-			id: product.id,
-			aisle,
-			name,
-			brand,
-			price,
-			url_img
-		}
+		//get Aisles
+		const resAisles = await fetch(`${BASE_URL}/api/aisle`)
+		const { data: dataAisles }: { data: AisleDB[] } = await resAisles.json()
+		aisleData = [...dataAisles]
 
-		productData.push(productToPush)
-	})
+		//fill aisleName
+		productData = tempProductData.map(product => {
+			const aisle = aisleData.find(aisle => aisle.id === product.aisle)
+			product.aisleName = aisle?.name || ''
+			return product
+		})
 
-	//get Aisles
-	const aisleData: AisleDB[] = []
-	const aislesRef = collection(db, "aisle")
-	const aisles = await getDocs(aislesRef)
 
-	aisles.forEach(aisle => {
-		const { name, aisleNumber, urlPhoto } = aisle.data()
-		const aisleToPush: AisleDB = {
-			id: aisle.id,
-			name: `${Number(aisleNumber)}: ${name}`,
-			aisleNumber: Number(aisleNumber),
-			urlPhoto
-		}
-		aisleData.push(aisleToPush)
-	})
-
-	aisleData.sort((a, b) => a.aisleNumber - b.aisleNumber)
-
-	if (!products) {
 		return {
-			notFound: true,
+			props: {
+				products: productData,
+				aisles: aisleData,
+			},
 		}
-	}
-
-	if (!aisles) {
-		return {
-			notFound: true,
-		}
-	}
-	return {
-		props: {
-			products: productData,
-			aisles: aisleData,
-		}, // will be passed to the page component as props
+	} catch (error) {
+		console.error(error)
+		return { notFound: true, }
 	}
 }

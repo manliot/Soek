@@ -1,14 +1,13 @@
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { db, storage } from "../../services/firebase/client";
+import { db } from "../../services/firebase/client";
 import { toastLoading, toastMessage } from "../../services/toast/toast";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, updateDoc, addDoc, doc, deleteDoc } from "firebase/firestore";
 import { ProductToAdd } from "@/types/Product.interface";
-
+import { addImage, deleteImageByUrl } from "./images";
 
 
 export const addProduct = async (product: ProductToAdd) => {
   try {
-    product.url_img = await addImage('images', product.file_img.name, product.file_img)
+    product.url_img = await addImage('images', product.file_img!.name, product.file_img!)
 
     const { file_img, ...productToAdd } = product
     await toastLoading(addDoc(collection(db, "product"), productToAdd), 'Guardando Producto', 'Producto guardado exitosamente', 'No se pudo guardar el producto')
@@ -18,16 +17,39 @@ export const addProduct = async (product: ProductToAdd) => {
   }
 }
 
-const addImage = (reference: string, name: string, image: File): Promise<string> => {
-  const date = new Date().toISOString()
-  const imagesRef = ref(storage, `${reference}/${date}_${name}`);
-  return new Promise((resolve, reject) => {
-    toastLoading(uploadBytes(imagesRef, image), 'Guardando Imagen', 'Imagen guardada exitosamente', 'No se pudo guardar la imagen')
-      .then(res => {
-        resolve(getDownloadURL(res.ref))
-      })
-      .catch(err => {
-        reject(err)
-      })
-  })
+
+export const updateProduct = async (product: ProductToAdd) => {
+  try {
+    const productReference = doc(db, "product", product.id || '')
+    if (productReference) {
+      if (product.file_img) {
+        toastMessage("info", "Se procederá a actualizar la imagen del producto", { icon: '🫡' })
+        const lastUrl = product.url_img
+        product.url_img = await addImage('images', product.file_img.name, product.file_img)
+
+        toastMessage("info", "Se procederá a eliminar la imagen anterior del producto", { icon: '🫡' })
+        deleteImageByUrl(lastUrl)
+      }
+      const { file_img, ...productToAdd } = product
+      await toastLoading(updateDoc(productReference, productToAdd), 'Actualizando Producto...', 'Producto actualizado exitosamente', 'No se pudo actualizar el producto')
+    } else
+      toastMessage('error', 'No se encontró el producto a actualizar')
+
+  } catch (error) {
+    toastMessage('error', 'Ocurrió un error, intente nuevamente')
+  }
+}
+
+
+export const deleteProduct = async (product: ProductToAdd) => {
+  try {
+    const productReference = doc(db, "product", product.id || '')
+    if (productReference) {
+      deleteImageByUrl(product.url_img)
+      await toastLoading(deleteDoc(productReference), 'Eliminando Producto...', 'Producto eliminado exitosamente', 'No se pudo eliminar el producto')
+    } else
+      toastMessage('error', 'No se encontró el producto a eliminar')
+  } catch (error) {
+    toastMessage('error', 'Ocurrió un error, intente nuevamente')
+  }
 }

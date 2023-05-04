@@ -7,7 +7,8 @@ const defaultProduct: Product = {
   name: 'Nombre del producto',
   brand: 'Marca del producto',
   price: 1000,
-  aisle: 'Categoria del producto',
+  aisle: 'Numero del pasillo',
+  aisleName: 'Nombre del pasillo',
   url_img: 'https://img.freepik.com/vector-gratis/maqueta-dispositivo-digital_53876-90966.jpg?w=2000',
 }
 
@@ -25,9 +26,9 @@ export function ProductCard({ product = defaultProduct }: { product: Product }) 
       <div className={styles.content}>
         <p className={styles.contentBrand}><strong>{product.brand} </strong></p>
         <h3 className={styles.contentBrand}>{product.name}</h3>
-        <p>{product.aisle}</p>
         <br></br>
         <p><strong>{getCurrencyNumber(Number(product.price))}</strong></p>
+        <p className={styles.aisleNumber}>Pasillo {product.aisleName.split(':')[0]}</p>
       </div>
       <button className={styles.btn}>
         Agregar
