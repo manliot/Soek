@@ -1,4 +1,4 @@
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 import { storage } from "../../services/firebase/client";
 import { toastLoading } from "../../services/toast/toast";
 
@@ -13,6 +13,21 @@ export const addImage = (reference: string, name: string, image: File): Promise<
       })
       .catch(err => {
         reject(err)
+      })
+  })
+}
+
+export const deleteImageByUrl = (url: string): Promise<Boolean> => {
+
+  const imagesRef = ref(storage, url);
+
+  return new Promise((resolve, reject) => {
+    toastLoading(deleteObject(imagesRef), 'Eliminando Imagen...', 'Imagen eliminada exitosamente', 'No se pudo eliminar la imagen')
+      .then(res => {
+        resolve(true)
+      })
+      .catch(err => {
+        reject(false)
       })
   })
 }
