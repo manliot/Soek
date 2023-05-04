@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, useRef } from 'react'
+import { ChangeEvent, useState, useRef, useEffect } from 'react'
 import Image from 'next/image'
 import styles from './inputImg.module.css'
 import { ImportIcon } from '../../assets/svg/ImportIcon'
@@ -12,12 +12,15 @@ interface InputImgProps {
 export function InputImg({ value, disabled = false, onChange }: InputImgProps) {
   const [imgUrl, setImgUrl] = useState<string>(value)
   const inputRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    setImgUrl(value)
+  }, [value])
 
   const handleImgChange = (event: ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     const file = event.target.files![0];
     const reader = new FileReader();
-    if (reader) {
+    if (reader && file) {
       reader.readAsDataURL(file);
       reader.onload = () => {
         setImgUrl(reader.result as string);
