@@ -1,9 +1,8 @@
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { db, storage } from "../../services/firebase/client";
+import { db } from "../../services/firebase/client";
 import { toastLoading, toastMessage } from "../../services/toast/toast";
 import { collection, addDoc } from "firebase/firestore";
 import { ProductToAdd } from "@/types/Product.interface";
-
+import { addImage } from "./images";
 
 
 export const addProduct = async (product: ProductToAdd) => {
@@ -16,18 +15,4 @@ export const addProduct = async (product: ProductToAdd) => {
   } catch (error) {
     toastMessage('error', 'Ocurrió un error, intente nuevamente')
   }
-}
-
-const addImage = (reference: string, name: string, image: File): Promise<string> => {
-  const date = new Date().toISOString()
-  const imagesRef = ref(storage, `${reference}/${date}_${name}`);
-  return new Promise((resolve, reject) => {
-    toastLoading(uploadBytes(imagesRef, image), 'Guardando Imagen', 'Imagen guardada exitosamente', 'No se pudo guardar la imagen')
-      .then(res => {
-        resolve(getDownloadURL(res.ref))
-      })
-      .catch(err => {
-        reject(err)
-      })
-  })
 }
