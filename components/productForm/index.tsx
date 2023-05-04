@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { InputTextNumber } from "@/components/inputTxtNumber";
-import { ProductForm, ProductFormProps, Product, ProductToAdd } from "../../types/Product.interface";
+import { ProductForm, ProductFormProps, ProductToAdd } from "../../types/Product.interface";
 import styles from './productForm.module.css'
 import { InputImg } from "../inputImg";
 import { useProductContext } from '@/context/products/productContext';
 import { useAisleContext } from '@/context/aisles/aislesContext';
+import { toastMessage } from "@/services/toast/toast";
 
 
-
-export function ProductForm({ product, disabledInputs, action, onSubmitAction }: ProductFormProps) {
+export function ProductForm({ disabledInputs, action, onSubmitAction }: ProductFormProps) {
   const { dataProducts } = useProductContext();
   const { dataAisles } = useAisleContext();
 
@@ -18,12 +18,9 @@ export function ProductForm({ product, disabledInputs, action, onSubmitAction }:
     price: '',
     aisle: '',
     url_img: '',
-    file_img: {} as File,
   }
-  const initialState = product
-    ? product
-    : emptyProduct;
-  const [formValues, setFormValues] = useState(initialState);
+  const initialState = emptyProduct;
+  const [formValues, setFormValues] = useState<ProductToAdd>(initialState);
 
   const handleInputChange = (fieldName: keyof ProductForm, value: string | number | File) => {
     setFormValues({
@@ -32,87 +29,115 @@ export function ProductForm({ product, disabledInputs, action, onSubmitAction }:
     });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    onSubmitAction(formValues);
+  const selectProduct = (id: string | number) => {
+    const selectedProduct = dataProducts.find(product => product.id === id)
+
+    if (selectProduct.length === 0) {
+      toastMessage('error', 'No se encontró el producto, recuerde seleccionar solo un producto de la lista')
+    } else {
+      const product: ProductToAdd = {
+        id: selectedProduct?.id || '',
+        name: selectedProduct?.name || '',
+        brand: selectedProduct?.brand || '',
+        price: selectedProduct?.price || '',
+        aisle: selectedProduct?.aisle || '',
+        url_img: selectedProduct?.url_img || '',
+      }
+      setFormValues(product)
+    }
   };
 
-  const options = ['Frutas', 'Verduras', 'Lácteos', 'Carnes'];
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if ((action === 'update' || action === 'delete') && !formValues.id) {
+      toastMessage('error', 'No se ha seleccionado un producto')
+    } else if (action === 'add' && !formValues.file_img) {
+      toastMessage('error', 'No se ha seleccionado una imagen')
+    } else if (!formValues.name || !formValues.brand || !formValues.price || !formValues.aisle || !formValues.url_img) {
+      toastMessage('error', 'Debe seleccionar todos los campos')
+    } else {
+      onSubmitAction(formValues);
+    }
+  };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className={styles.form}
-    >
-      <div
-        className={`${styles.left} ${styles.column}`}
+    <div className={styles.container}>
+      {(action === 'update' || action === 'delete')
+        && <InputTextNumber
+          type='text'
+          name="namefind"
+          placeholder="Selecciona un producto"
+          value={formValues.id || ''}
+          options={
+            dataProducts.map(product => {
+              const option: { name: string, id: string } = { name: product.name, id: product.id }
+              return option
+            })
+          }
+          disabled={false}
+          onChange={(value: string | number) => selectProduct(value)}
+        />
+      }
+
+      <form
+        onSubmit={handleSubmit}
+        className={styles.form}
       >
-        {action === 'update' || action === 'delete'
-          ? <InputTextNumber
+        <div
+          className={`${styles.left} ${styles.column}`}
+        >
+          <InputTextNumber
             type='text'
             name="name"
             placeholder="Nombre del producto"
             value={formValues.name}
-            options={
-              dataProducts.map(product => {
-                const option: { name: string, id: string } = { name: product.name, id: product.id }
-                return option
-              })
-            }
             disabled={disabledInputs?.includes('name') || false}
             onChange={(value: string | number) => handleInputChange('name', value)}
           />
-          : <InputTextNumber
+          <InputTextNumber
             type='text'
-            name="name"
-            placeholder="Nombre del producto"
-            value={formValues.name}
-            disabled={disabledInputs?.includes('name') || false}
-            onChange={(value: string | number) => handleInputChange('name', value)}
-          />}
-        <InputTextNumber
-          type='text'
-          name="brand"
-          placeholder="Nombre de la marca"
-          disabled={disabledInputs?.includes('brand') || false}
-          value={formValues.brand}
-          onChange={(value: string | number) => handleInputChange('brand', value)}
-        />
-        <InputTextNumber
-          type='number'
-          name="price"
-          disabled={disabledInputs?.includes('price') || false}
-          placeholder="Precio del producto"
-          value={formValues.price}
-          onChange={(value: string | number) => handleInputChange('price', value)}
-        />
-        <InputTextNumber
-          type='text'
-          name="aisle"
-          disabled={disabledInputs?.includes('aisle') || false}
-          placeholder="Nombre del pasillo"
-          value={formValues.aisle}
-          options={dataAisles.map(aisle => {
-            const option: { name: string, id: string } = { name: aisle.name, id: aisle.id }
-            return option
-          })}
-          onChange={(value: string | number) => handleInputChange('aisle', value)}
-        />
-      </div>
-      <div
-        className={`${styles.right} ${styles.column}`}
-      >
-        <InputImg
-          disabled={disabledInputs?.includes('url_img') || false}
-          value={formValues.url_img}
-          onChange={(value: File) => handleInputChange('file_img', value)}
-        />
-      </div>
-      <div
-        className={styles.btn}
-      >
-        <button type="submit">Guardar</button>
-      </div>
-    </form>
+            name="brand"
+            placeholder="Nombre de la marca"
+            disabled={disabledInputs?.includes('brand') || false}
+            value={formValues.brand}
+            onChange={(value: string | number) => handleInputChange('brand', value)}
+          />
+          <InputTextNumber
+            type='number'
+            name="price"
+            disabled={disabledInputs?.includes('price') || false}
+            placeholder="Precio del producto"
+            value={formValues.price}
+            onChange={(value: string | number) => handleInputChange('price', value)}
+          />
+          <InputTextNumber
+            type='text'
+            name="aisle"
+            disabled={disabledInputs?.includes('aisle') || false}
+            placeholder="Nombre del pasillo"
+            value={formValues.aisle}
+            options={dataAisles.map(aisle => {
+              const option: { name: string, id: string } = { name: aisle.name, id: aisle.id }
+              return option
+            })}
+            onChange={(value: string | number) => handleInputChange('aisle', value)}
+          />
+        </div>
+        <div
+          className={`${styles.right} ${styles.column}`}
+        >
+          <InputImg
+            disabled={disabledInputs?.includes('url_img') || false}
+            value={formValues.url_img}
+            onChange={(value: File) => handleInputChange('file_img', value)}
+          />
+        </div>
+        <div
+          className={styles.btn}
+        >
+          <button type="submit">Guardar</button>
+        </div>
+      </form>
+    </div>
   )
 }
