@@ -34,10 +34,15 @@
   align-items: center;
 }
 
-.btn button {
+.button {
   padding: 6px 32px;
   border: none;
   border-radius: 100px;
   background: var(--p3-color);
   color: white;
+  font-weight: bold;
+}
+
+.deleteBtn {
+  background-color: #c62323;
 }

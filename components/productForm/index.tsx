@@ -135,9 +135,18 @@ export function ProductForm({ disabledInputs, action, onSubmitAction }: ProductF
         <div
           className={styles.btn}
         >
-          <button type="submit">Guardar</button>
+          <button
+            type="submit"
+            className={`${styles.button} ${action === 'delete' ? styles.deleteBtn : ''}`}
+          >{HASH_BTN_TXT[action]}</button>
         </div>
       </form>
     </div>
   )
+}
+
+const HASH_BTN_TXT: { [key: string]: string } = {
+  'update': 'Actualizar',
+  'delete': 'Borrar',
+  'add': 'Agregar',
 }
