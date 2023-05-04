@@ -7,7 +7,7 @@ const initialOptions: Partial<Pick<Toast, "id" | "icon" | "duration" | "ariaProp
 }
 
 export const toastMessage = (
-  type: 'success' | 'error',
+  type: 'success' | 'error' | 'info',
   message: string,
   extra_options?: Partial<Pick<Toast, "id" | "icon" | "duration" | "ariaProps" | "className" | "style" | "position" | "iconTheme">>
 ) => {
@@ -16,6 +16,8 @@ export const toastMessage = (
     return toast.success(message, options)
   if (type === 'error')
     return toast.error(message, options)
+  if (type === 'info')
+    return toast(message, options)
 };
 
 export const toastLoading = (
