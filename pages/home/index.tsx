@@ -29,7 +29,7 @@ export default function Home({ products, aisles }: HomeProps) {
 				<title>SOEK - Compra Eficiente</title>
 			</Head>
 			<Header />
-			<main>
+			<main className={styles.main}>
 				<div className={styles.productCardContainer}>
 					{dataProducts.length >= 0 &&
 						dataProducts.map(product => <ProductCard product={product} key={product.id} />)

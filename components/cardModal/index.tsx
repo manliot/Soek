@@ -1,4 +1,4 @@
-import { useNavigation } from "../../customHooks/navigation";
+import { useNavigation } from "../../hooks/useNavigation";
 import styles from "./CardModal.module.css";
 import { Card } from "./CardModal.interface";
 
