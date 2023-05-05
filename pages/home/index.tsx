@@ -11,12 +11,12 @@ import { useProductContext } from '@/context/products/productContext';
 import { useAisleContext } from '@/context/aisles/aislesContext';
 
 export default function Home({ products, aisles }: HomeProps) {
-	const { updateProductStatus, dataProducts } = useProductContext();
+	const { updateProductState, getFilteredProducts } = useProductContext();
 	const { updateAislesStatus } = useAisleContext();
 
 	useEffect(() => {
 		const updateProducts = () => {
-			updateProductStatus(products)
+			updateProductState(products)
 			updateAislesStatus(aisles)
 		}
 		updateProducts()
@@ -31,8 +31,8 @@ export default function Home({ products, aisles }: HomeProps) {
 			<Header />
 			<main className={styles.main}>
 				<div className={styles.productCardContainer}>
-					{dataProducts.length >= 0 &&
-						dataProducts.map(product => <ProductCard product={product} key={product.id} />)
+					{getFilteredProducts.length >= 0 &&
+						getFilteredProducts().map(product => <ProductCard product={product} key={product.id} />)
 					}
 				</div>
 			</main>
