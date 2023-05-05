@@ -33,3 +33,17 @@
   top: 13px;
   right: 2px;
 }
+
+/* mobile */
+@media screen and (max-width: 637px) {
+  .container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .iconContainer {
+    display: flex;
+  }
+}
