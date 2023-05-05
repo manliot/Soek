@@ -4,9 +4,10 @@ import { CardModal } from "@/components/cardModal";
 import Image from "next/image";
 import { GoogleIcon } from "../../assets/svg/GoogleIcon";
 import { LoginWithGoogle, Logout } from "../../services/firebase/googleAuth";
-import { useNavigation } from '../../customHooks/navigation'
+import { useNavigation } from '../../hooks/useNavigation'
+import Head from 'next/head'
 
-import { useUser } from "../../customHooks/useUser";
+import { useUser } from "../../hooks/useUser";
 
 export default function Login() {
   const { navigateTo, navigateBack } = useNavigation()
@@ -36,6 +37,9 @@ export default function Login() {
 
   return (
     <>
+      <Head>
+        <title>{!user?.uid ? 'Iniciar Sesión' : 'Cerrar Sesión'}</title>
+      </Head>
       <main className={styles.mainContainer}>
         <CardModal orientation="vertical" btnIcon="back" show={showFrom} changeShow={onCancel}>
           {!user?.uid

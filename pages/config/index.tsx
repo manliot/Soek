@@ -10,9 +10,10 @@ import { Product } from '@/types/Product.interface';
 import { AisleDB } from '@/types/Aisle.interface';
 import { GetServerSidePropsContext } from 'next';
 import { HomeProps } from "../../types/home/Home.interface";
+import Head from 'next/head'
 
 export default function Config({ products, aisles }: HomeProps) {
-  const { updateProductStatus, dataProducts } = useProductContext();
+  const { updateProductState: updateProductStatus } = useProductContext();
   const { updateAislesStatus } = useAisleContext();
 
   useEffect(() => {
@@ -25,6 +26,9 @@ export default function Config({ products, aisles }: HomeProps) {
 
   return (
     <SideBarContextProvider>
+      <Head>
+        <title>Actualizar Inventario</title>
+      </Head>
       <Header />
       <main className={styles.main}>
         <ConfigSidebar />

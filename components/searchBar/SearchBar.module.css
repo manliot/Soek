@@ -21,6 +21,10 @@
     background-color: var(--p2-color);
 }
 
+.searchBtn:hover {
+    cursor: pointer;
+}
+
 .searchBtn span {
     width: 20px;
     height: 20px;

@@ -1,16 +1,11 @@
-import Head from 'next/head'
-import { Header } from "../components/header";
+import { useEffect } from 'react';
+import { useNavigation } from '@/hooks/useNavigation';
 
 export default function Home() {
-  return (
-    <>
-      <Head>
-        <title>SOEK - Compra Facil</title>
-        <meta name="description" content="Compra Eficiente" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      Indice
-    </>
-  )
+  const { replaceRoute } = useNavigation()
+  useEffect(() => {
+    replaceRoute('/home');
+  }, []);
+
+  return null
 }
