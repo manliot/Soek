@@ -11,8 +11,13 @@ export function useNavigation() {
     router.back();
   }
 
+  function replaceRoute(newRoute: string) {
+    router.replace(newRoute);
+  }
+
   return {
     navigateTo,
     navigateBack,
+    replaceRoute,
   };
 }

@@ -4,7 +4,7 @@ import { SettingsIcon } from "../../assets/svg/SettingsIcon";
 import { UserIcon } from "../../assets/svg/UserIcon";
 import { ShoppingBag } from "../../assets/svg/ShoppingBag";
 import { ErrorIcon } from "../../assets/svg/ErrorIcon";
-import { useUser } from "../../customHooks/useUser";
+import { useUser } from "../../hooks/useUser";
 
 
 export function InterfaceIcon(props: propsType) {
