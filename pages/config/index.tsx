@@ -13,7 +13,7 @@ import { HomeProps } from "../../types/home/Home.interface";
 import Head from 'next/head'
 
 export default function Config({ products, aisles }: HomeProps) {
-  const { updateProductStatus } = useProductContext();
+  const { updateProductState: updateProductStatus } = useProductContext();
   const { updateAislesStatus } = useAisleContext();
 
   useEffect(() => {
