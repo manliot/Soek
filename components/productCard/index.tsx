@@ -24,11 +24,14 @@ export function ProductCard({ product = defaultProduct }: { product: Product }) 
         />
       </div>
       <div className={styles.content}>
-        <p className={styles.contentBrand}><strong>{product.brand} </strong></p>
-        <h3 className={styles.contentBrand}>{product.name}</h3>
-        <br></br>
-        <p><strong>{getCurrencyNumber(Number(product.price))}</strong></p>
-        <p className={styles.aisleNumber}>Pasillo {product.aisleName.split(':')[0]}</p>
+        <div>
+          <p className={styles.contentBrand}><strong>{product.brand} </strong></p>
+          <h3 className={styles.contentBrand}>{product.name}</h3>
+        </div>
+        <div>
+          <p><strong>{getCurrencyNumber(Number(product.price))}</strong></p>
+          <p className={styles.aisleNumber}>Pasillo {product.aisleName.split(':')[0]}</p>
+        </div>
       </div>
       <button className={styles.btn}>
         Agregar

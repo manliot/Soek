@@ -1,6 +1,9 @@
 .header {
     background-color: var(--p1-color);
     width: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
 }
 
 .headerContainer {
