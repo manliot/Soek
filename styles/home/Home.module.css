@@ -39,4 +39,8 @@
     grid-template-columns: repeat(1, 250px);
     /* 1 columna para móviles */
   }
+
+  .main {
+    margin-top: 130px;
+  }
 }
