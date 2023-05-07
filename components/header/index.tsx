@@ -41,7 +41,7 @@ export function Header() {
             <InterfaceIcon type="user" />
           </Link>
           <Link href='/shopping-bag'>
-            <InterfaceIcon type="bag" notificationNumber={totalItems} />
+            <InterfaceIcon type="bag" notificationNumber={totalItems > 0 ? totalItems : undefined} />
           </Link>
           <button
             className={`${styles.btnMobile} ${styles.btnCloseMenu}`}
