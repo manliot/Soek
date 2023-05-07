@@ -21,7 +21,6 @@
   grid-row-gap: 30px;
   grid-column-gap: 30px;
   justify-content: center;
-
 }
 
 .main {
@@ -50,6 +49,10 @@
   .productCardContainer {
     grid-template-columns: repeat(1, 250px);
     /* 1 columna para móviles */
+  }
+
+  .container {
+    padding: 0 15px;
   }
 
   .main {
