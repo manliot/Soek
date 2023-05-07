@@ -20,7 +20,7 @@
   background-color: transparent;
   height: 5px;
   width: 10px;
-  border-bottom: 1px solid var(--txt-color);
+  border-bottom: 1px solid #cccaca;
 }
 
 .aislesCardContainer::-webkit-scrollbar-thumb {
