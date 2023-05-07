@@ -11,6 +11,7 @@ import { useProductContext } from '@/context/products/productContext';
 import { useAisleContext } from '@/context/aisles/aislesContext';
 import { AislesCard } from "@/components/aislesCard";
 import { NotProducts } from "@/components/notProducts";
+import { ShowAllAisles } from "@/components/showAllAisles";
 
 export default function Home({ products, aisles }: HomeProps) {
 	const { updateProductState, getFilteredProducts } = useProductContext();
@@ -34,6 +35,7 @@ export default function Home({ products, aisles }: HomeProps) {
 			<main className={styles.main}>
 				<div className={styles.container}>
 					<div className={styles.aislesCardContainer}>
+						<ShowAllAisles />
 						{getAislesList().map(aisle => <AislesCard aisle={aisle} key={aisle.id} type='minimal' />)}
 					</div>
 					{getFilteredProducts().length > 0

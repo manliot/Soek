@@ -12,9 +12,9 @@ export function AislesCard(
   const { updateFilteredAisles } = useAisleContext()
   const { navigateTo } = useNavigation()
   const handleClick = () => {
-    updateFilteredAisles(aisle)
     if (type === 'all')
       navigateTo('/home')
+    updateFilteredAisles(aisle)
   }
 
   return (
@@ -26,8 +26,9 @@ export function AislesCard(
       onClick={handleClick}
     >
       {type === 'all' && (
-        <div>
-          <p>{aisle.aisleNumber}</p>
+        <div className={styles.aisleNumberContainer}>
+          <p>Pasillo</p>
+          <p>#{aisle.aisleNumber}</p>
         </div>
       )}
       <div

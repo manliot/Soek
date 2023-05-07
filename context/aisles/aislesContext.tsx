@@ -15,6 +15,10 @@ export const AisleProvider = ({ children }: { children: ReactNode }) => {
       : setfilteredAisles([aisle, ...filteredAisles])
   }
 
+  const resetFilteredAisles = () => {
+    setfilteredAisles([])
+  }
+
   const getAislesList = (): (AisleDB & { filtered: boolean })[] => {
     const filteredAislesIds: string[] = []
 
@@ -44,6 +48,7 @@ export const AisleProvider = ({ children }: { children: ReactNode }) => {
       datafilteredAisles: filteredAisles,
       updateFilteredAisles: (aisle: AisleDB) => updateFilteredAisles(aisle),
       getAislesList: () => getAislesList(),
+      resetFilteredAisles: () => resetFilteredAisles(),
     }}>
       {children}
     </AisleContext.Provider>
@@ -60,4 +65,5 @@ interface AisleContextProps {
   datafilteredAisles: AisleDB[];
   updateFilteredAisles: (aisle: AisleDB) => void;
   getAislesList: () => (AisleDB & { filtered: boolean })[];
+  resetFilteredAisles: () => void;
 }

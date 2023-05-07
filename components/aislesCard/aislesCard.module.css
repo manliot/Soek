@@ -9,6 +9,31 @@
   border-radius: 15px;
 }
 
+.container {
+  width: 370px;
+  height: 80px;
+  display: flex;
+  background-color: white;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 15px;
+  overflow: hidden;
+  padding-right: 15px;
+  box-sizing: border-box;
+}
+
+.aisleNumberContainer {
+  background-color: var(--p2-color);
+  height: 80px;
+  width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-direction: column;
+  font-weight: 500;
+}
+
 .aisleNameMinimal {
   font-size: 0.75rem;
   overflow: hidden;
@@ -18,8 +43,32 @@
   text-align: center;
 }
 
-.aisleNameMinimal p {}
+.aisleName {
+  flex: 1;
+  box-sizing: border-box;
+  padding: 4px 10px;
+  white-space: nowrap;
+  max-width: 200px;
+  overflow: hidden;
+  max-width: 240px;
+  margin-right: 15px ;
+  text-overflow: ellipsis;
+}
+
+
 
 .filtered {
   background-color: #00425a26;
+}
+
+
+@media screen and (max-width: 637px) {
+  .container {
+    width: 330px;
+
+  }
+
+  .aisleName {
+    max-width: 200px;
+  }
 }
