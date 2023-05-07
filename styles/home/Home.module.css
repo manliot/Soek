@@ -13,6 +13,22 @@
   overflow-x: scroll;
   margin-bottom: 30px;
   gap: 10px;
+  padding-bottom: 10px;
+}
+
+.aislesCardContainer::-webkit-scrollbar {
+  background-color: transparent;
+  height: 5px;
+  width: 10px;
+}
+
+.aislesCardContainer::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
+
+.aislesCardContainer:hover::-webkit-scrollbar-thumb {
+  background-color: var(--p3-color);
+  transition: background-color 1s ease-in-out;
 }
 
 .productCardContainer {
