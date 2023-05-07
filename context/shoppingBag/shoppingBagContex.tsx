@@ -10,6 +10,10 @@ export function ShoppingBagProvider({ children }: { children: ReactNode }) {
   const [shoppingBag, setShoppingBag] = useState<ShoppingBagInterface[]>([])
   const { dataAisles } = useAisleContext()
 
+  const getShoppingBag = () => {
+    return shoppingBag.sort((a, b) => a.aisle.aisleNumber - b.aisle.aisleNumber)
+  }
+
   const addProductToShoppingBag = (product: Product) => {
     const shoppingBagCopy = shoppingBag.slice()
 
@@ -73,7 +77,7 @@ export function ShoppingBagProvider({ children }: { children: ReactNode }) {
   return (
     <ShoppingBagContext.Provider
       value={{
-        shoppingBag,
+        getShoppingBag,
         addProductToShoppingBag,
         removeProductFromShoppingBag,
         getTotals,
@@ -89,7 +93,7 @@ export function useShoppingBagContext() {
 }
 
 interface ShoppingBagContextProps {
-  shoppingBag: ShoppingBagInterface[];
+  getShoppingBag: () => ShoppingBagInterface[];
   addProductToShoppingBag: (product: Product) => void;
   removeProductFromShoppingBag: (product: Product) => void;
   getTotals: () => { total: number, totalItems: number };
