@@ -1,9 +1,8 @@
 import { createContext, useState, useContext, ReactNode } from "react";
 import { Product, BagProduct } from "@/types/Product.interface";
-
+import { useAisleContext } from "../aisles/aislesContext";
 const initialFilters = {
   nameFilter: '',
-  aislesFilter: [],
 }
 
 export const ProductContext = createContext({} as ProductContextProps)
@@ -11,6 +10,7 @@ export const ProductContext = createContext({} as ProductContextProps)
 export const ProductProvider = ({ children }: { children: ReactNode }) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [filter, setfilter] = useState<FilterInterface>(initialFilters);
+  const { datafilteredAisles } = useAisleContext();
 
   const getFilteredProducts = (): Product[] => {
     let filterProducts: Product[] = products.slice()
@@ -19,8 +19,9 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
         return product.name.toLowerCase().includes(filter.nameFilter.toLowerCase()) || product.brand.toLowerCase().includes(filter.nameFilter.toLowerCase())
       })
     }
-    if (filter.aislesFilter.length > 0) {
-      filterProducts = filterProducts.filter((product: Product) => filter.aislesFilter.includes(product.aisle))
+    if (datafilteredAisles.length > 0) {
+      const aislesIds: string[] = datafilteredAisles.map((aisle) => aisle.id)
+      filterProducts = filterProducts.filter((product: Product) => aislesIds.includes(product.aisle))
     }
     return filterProducts
   }
@@ -55,5 +56,4 @@ interface ProductContextProps {
 }
 interface FilterInterface {
   nameFilter: string;
-  aislesFilter: string[];
 }
