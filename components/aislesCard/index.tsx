@@ -11,9 +11,9 @@ export function AislesCard(
 
   const { updateFilteredAisles } = useAisleContext()
   const { navigateTo } = useNavigation()
-  const handleClick = () => {
+  const handleClick = async () => {
     if (type === 'all')
-      navigateTo('/home')
+      await navigateTo('/home')
     updateFilteredAisles(aisle)
   }
 
