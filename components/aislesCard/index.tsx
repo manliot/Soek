@@ -4,7 +4,7 @@ import styles from './aislesCard.module.css'
 import { useAisleContext } from "@/context/aisles/aislesContext"
 import { useNavigation } from "@/hooks/useNavigation"
 
-export default function AislesCard(
+export function AislesCard(
   { aisle,
     type = 'all'
   }: { aisle: AisleDB & { filtered: boolean }, type: 'minimal' | 'all' }) {
