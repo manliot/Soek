@@ -8,11 +8,6 @@ export interface Product {
   aisleName: string;
 }
 
-export interface BagProduct {
-  product: Product;
-  quantity: number;
-}
-
 export interface ProductToAdd {
   id?: string;
   name: string;
