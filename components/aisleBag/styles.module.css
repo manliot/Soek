@@ -1,0 +1,29 @@
+.container {
+  background-color: white;
+  height: 42px;
+  display: inline-flex;
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.aisleNumber {
+  background-color: var(--p2-color);
+  width: 80px;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  font-weight: 500;
+  font-size: 0.75rem;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25px;
+}
+
+.aisleName {
+  padding: 0 20px 0 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

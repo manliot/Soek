@@ -9,10 +9,13 @@ import { HomeProps } from "../../types/home/Home.interface";
 import styles from "@/styles/home/Home.module.css";
 import { useProductContext } from '@/context/products/productContext';
 import { useAisleContext } from '@/context/aisles/aislesContext';
+import { AislesCard } from "@/components/aislesCard";
+import { NotProducts } from "@/components/notProducts";
+import { ShowAllAisles } from "@/components/showAllAisles";
 
 export default function Home({ products, aisles }: HomeProps) {
 	const { updateProductState, getFilteredProducts } = useProductContext();
-	const { updateAislesStatus } = useAisleContext();
+	const { updateAislesStatus, getAislesList, updateFilteredAisles } = useAisleContext();
 
 	useEffect(() => {
 		const updateProducts = () => {
@@ -30,9 +33,18 @@ export default function Home({ products, aisles }: HomeProps) {
 			</Head>
 			<Header />
 			<main className={styles.main}>
-				<div className={styles.productCardContainer}>
-					{getFilteredProducts.length >= 0 &&
-						getFilteredProducts().map(product => <ProductCard product={product} key={product.id} />)
+				<div className={styles.container}>
+					<div className={styles.aislesCardContainer}>
+						<ShowAllAisles />
+						{getAislesList().map(aisle => <AislesCard aisle={aisle} key={aisle.id} type='minimal' />)}
+					</div>
+					{getFilteredProducts().length > 0
+						? <div className={styles.productCardContainer}>
+							{getFilteredProducts().map(product => <ProductCard product={product} key={product.id} />)}
+						</div>
+						: <div className={styles.containerNotProducts}>
+							<NotProducts />
+						</div>
 					}
 				</div>
 			</main>

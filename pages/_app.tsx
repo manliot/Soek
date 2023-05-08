@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app'
 import { Toaster } from 'react-hot-toast'
 import { ProductProvider } from '@/context/products/productContext'
 import { AisleProvider } from '@/context/aisles/aislesContext'
+import { ShoppingBagProvider } from '@/context/shoppingBag/shoppingBagContex'
 import Head from 'next/head'
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -15,8 +16,10 @@ export default function App({ Component, pageProps }: AppProps) {
     </Head>
     <AisleProvider>
       <ProductProvider>
-        <Component {...pageProps} />
-        <Toaster />
+        <ShoppingBagProvider>
+          <Component {...pageProps} />
+          <Toaster />
+        </ShoppingBagProvider>
       </ProductProvider>
     </AisleProvider>
   </>

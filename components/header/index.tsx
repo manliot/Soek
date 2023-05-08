@@ -6,9 +6,12 @@ import Image from "next/image";
 import { useState } from "react";
 import { MenuIcon } from "@/assets/svg/MenuIcon";
 import { CloseIcon } from "@/assets/svg/CloseIcon";
+import { useShoppingBagContext } from "@/context/shoppingBag/shoppingBagContex";
 
 export function Header() {
   const [showMenu, setshowMenu] = useState(false)
+  const { getTotals } = useShoppingBagContext()
+  const { totalItems } = getTotals()
   return (
     <header className={styles.header}>
       <div className={styles.headerContainer}>
@@ -38,7 +41,7 @@ export function Header() {
             <InterfaceIcon type="user" />
           </Link>
           <Link href='/shopping-bag'>
-            <InterfaceIcon type="bag" notificationNumber={12} />
+            <InterfaceIcon type="bag" notificationNumber={totalItems > 0 ? totalItems : undefined} />
           </Link>
           <button
             className={`${styles.btnMobile} ${styles.btnCloseMenu}`}
