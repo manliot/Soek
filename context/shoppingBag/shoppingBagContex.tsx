@@ -27,12 +27,15 @@ export function ShoppingBagProvider({ children }: { children: ReactNode }) {
       productInAisle
         ? productInAisle.quantity += 1
         : aisle.products.push({ ...product, quantity: 1 })
-
+      toastMessage('success', 'Producto añadido a la canasta')
     } else {
       const Aisle = dataAisles.find((aisle) => aisle.id === product.aisle)
-      Aisle
-        ? shoppingBagCopy.push({ aisle: Aisle, products: [{ ...product, quantity: 1 }] })
-        : toastMessage('error', 'No se encontró el pasillo del producto')
+
+      if (Aisle) {
+        shoppingBagCopy.push({ aisle: Aisle, products: [{ ...product, quantity: 1 }] })
+        toastMessage('success', 'Producto añadido a la canasta')
+      } else
+        toastMessage('error', 'No se encontró el pasillo del producto')
     }
     setShoppingBag(shoppingBagCopy)
   }
@@ -54,6 +57,7 @@ export function ShoppingBagProvider({ children }: { children: ReactNode }) {
           : shoppingBagCopy[aisleIndex].products.splice(productIndex, 1)
         if (shoppingBagCopy[aisleIndex].products.length === 0) {
           shoppingBagCopy.splice(aisleIndex, 1)
+          toastMessage('success', 'Producto eliminado de la canasta')
         }
       }
     }
