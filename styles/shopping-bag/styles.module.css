@@ -1,0 +1,48 @@
+.main {
+  margin-top: 90px;
+  margin-bottom: 90px;
+  padding: 30px;
+}
+
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1276px;
+  padding: 0 70px;
+  box-sizing: border-box;
+}
+
+.productsContainer {
+  padding-left: 48px;
+  display: flex;
+  gap: 15px;
+  flex-direction: column;
+  margin: 20px 0 30px 0;
+}
+
+.titleTotal {
+  color: var(--txt-color);
+  font-size: 1.125rem;
+}
+
+.titleTotal h1 {
+  font-size: 1.125rem;
+
+}
+
+.titleTotal p {
+  text-align: right;
+}
+
+@media screen and (max-width: 916px) {
+  .productsContainer {
+    padding-left: 0;
+  }
+}
+
+@media screen and (max-width: 637px) {
+  .main {
+    margin-top: 150px;
+  }
+}

@@ -2,6 +2,8 @@ import Image from "next/image";
 import { Product } from "../../types/Product.interface";
 import styles from "./ProductCard.module.css";
 import { getCurrencyNumber } from "../../services/formatServices/numberFormat";
+import { useShoppingBagContext } from "@/context/shoppingBag/shoppingBagContex"
+
 const defaultProduct: Product = {
   id: '',
   name: 'Nombre del producto',
@@ -13,6 +15,11 @@ const defaultProduct: Product = {
 }
 
 export function ProductCard({ product = defaultProduct }: { product: Product }) {
+  const { addProductToShoppingBag } = useShoppingBagContext()
+  const handleClickAdd = () => {
+    addProductToShoppingBag(product)
+  }
+
   return (
     <article className={styles.cardContainer}>
       <div className={styles.img}>
@@ -33,7 +40,8 @@ export function ProductCard({ product = defaultProduct }: { product: Product }) 
           <p className={styles.aisleNumber}>Pasillo {product.aisleName.split(':')[0]}</p>
         </div>
       </div>
-      <button className={styles.btn}>
+      <button className={styles.btn}
+        onClick={handleClickAdd}>
         Agregar
       </button>
     </article>

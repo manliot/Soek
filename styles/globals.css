@@ -23,41 +23,24 @@ body {
 
 /* Estilo de la barra de desplazamiento */
 ::-webkit-scrollbar {
-  width: 12px;
+  width: 5px;
+  background-color: #1f8a70c7;
 }
+
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: transparent;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #888;
+  background: var(--p3-color);
+  height: 50px;
   border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-
-/* Estilo de la barra de desplazamiento */
-/* scrollbar-width: thin;
-scrollbar-color: #888 #f1f1f1; */
-
-/* Track */
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 10px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: #012d3c;
 }
