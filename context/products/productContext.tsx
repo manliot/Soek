@@ -1,5 +1,5 @@
 import { createContext, useState, useContext, ReactNode } from "react";
-import { Product, BagProduct } from "@/types/Product.interface";
+import { Product } from "@/types/Product.interface";
 import { useAisleContext } from "../aisles/aislesContext";
 const initialFilters = {
   nameFilter: '',
