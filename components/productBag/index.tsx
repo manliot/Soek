@@ -32,8 +32,12 @@ export function ProductBag({ product }: { product: Product & { quantity: number 
       <div
         className={styles.productInfo}
       >
-        <span><strong>{product.brand}</strong></span>
-        <span>{product.name}</span>
+        <div className={styles.productInfoBrand}>
+          <strong>{product.brand}</strong>
+        </div>
+        <div className={styles.productInfoName}>
+          {product.name}
+        </div>
 
       </div>
       <div

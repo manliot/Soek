@@ -9,7 +9,7 @@ export function AisleBag({ aisle }: { aisle: AisleDB }) {
         <p>#{aisle.aisleNumber}</p>
       </div>
       <div className={styles.aisleName}>
-        {aisle.name.split(':')[1]}
+        <p>{aisle.name.split(':')[1]}</p>
       </div>
     </div>
   )
