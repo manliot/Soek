@@ -45,7 +45,9 @@ export function ConfigSidebar() {
           }
         </ul>
       </div>
-      <div className={`${styles.overlay} ${showOptions ? styles.show : ''}`}></div>
+      <div
+        className={`${styles.overlay} ${showOptions ? styles.show : ''}`}
+        onClick={() => setshowOptions(!showOptions)}></div>
     </aside>
   )
 }
