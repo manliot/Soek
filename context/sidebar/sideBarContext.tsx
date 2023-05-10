@@ -3,6 +3,8 @@ import { Option } from "@/components/configSidebar/ConfigSidebar.interface";
 import { AddIcon } from "@/assets/svg/AddIcon";
 import { UpdateIcon } from "@/assets/svg/UpdateIcon";
 import { DeleteIcon } from "@/assets/svg/DeleteIcon";
+import { CommentsConfigIcon } from "@/assets/svg/CommentsConfigIcon";
+import { UserConfigIcon } from "@/assets/svg/UserConfigIcon";
 import { SidebarContextType } from "./sideBarContext.interface";
 
 
@@ -18,6 +20,14 @@ const OPTIONS: Option[] = [
   {
     option: 'Eliminar Producto',
     icon: <DeleteIcon />
+  },
+  {
+    option: 'Buzón de Sugerencias',
+    icon: <CommentsConfigIcon fill_1="#000000" />
+  },
+  {
+    option: 'Administrar Usuarios',
+    icon: <UserConfigIcon fill_1="#000000" />
   }
 ];
 
