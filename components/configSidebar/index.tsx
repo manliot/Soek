@@ -15,12 +15,16 @@ export function ConfigSidebar() {
   return (
     <aside className={styles.container}>
       <div
-        className={styles.titleContainer}
+        className={`${styles.titleContainer} ${showOptions ? styles.fixed : ''}`}
         onClick={() => setshowOptions(!showOptions)}
       >
         <h2>Configuración  ▼</h2>
       </div>
-      <div className={`${styles.optionsContainer} ${showOptions ? styles.show : ''}`}>
+      <div className={`
+      ${styles.optionsContainer} 
+      ${showOptions ? styles.fixed : ''}
+      ${showOptions ? styles.show : ''}
+      `}>
         <ul
           className={styles.listUl}
         >
@@ -41,6 +45,7 @@ export function ConfigSidebar() {
           }
         </ul>
       </div>
+      <div className={`${styles.overlay} ${showOptions ? styles.show : ''}`}></div>
     </aside>
   )
 }

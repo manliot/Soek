@@ -13,6 +13,7 @@
   padding: 10px;
   display: flex;
   align-items: center;
+  background-color: white;
 }
 
 .titleContainer h2 {
@@ -66,22 +67,44 @@
     max-width: 100%;
     height: max-content;
     position: relative;
+    top: 0;
+  }
+
+  .titleContainer {
+    width: 100%;
   }
 
   .listUl {
-    display: flex;
+    display: grid;
     justify-content: center;
     align-items: center;
     gap: 15px;
-    flex-wrap: wrap;
+  }
+
+
+
+  .overlay {
+    display: none;
+    position: fixed;
+    top: 130px;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.172);
+    width: 100vw;
+    height: calc(100vh - 130px);
+    z-index: 1;
+  }
+
+
+  .fixed {
+    position: fixed;
+    z-index: 2;
   }
 
   .optionsContainer {
     margin: 0;
     padding: 15px;
-    position: absolute;
-    background-color: rgb(225 222 222);
-    top: 55px;
+    background-color: rgb(255, 255, 255);
+    top: 183px;
     display: none;
   }
 
