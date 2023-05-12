@@ -5,6 +5,7 @@ import { ProductProvider } from '@/context/products/productContext'
 import { AisleProvider } from '@/context/aisles/aislesContext'
 import { ShoppingBagProvider } from '@/context/shoppingBag/shoppingBagContex'
 import Head from 'next/head'
+import { AuthProvider } from '@/context/auth/authContext'
 
 export default function App({ Component, pageProps }: AppProps) {
   return <>
@@ -14,13 +15,15 @@ export default function App({ Component, pageProps }: AppProps) {
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <link rel="icon" href="/favicon.ico" />
     </Head>
-    <AisleProvider>
-      <ProductProvider>
-        <ShoppingBagProvider>
-          <Component {...pageProps} />
-          <Toaster />
-        </ShoppingBagProvider>
-      </ProductProvider>
-    </AisleProvider>
+    <AuthProvider>
+      <AisleProvider>
+        <ProductProvider>
+          <ShoppingBagProvider>
+            <Component {...pageProps} />
+            <Toaster />
+          </ShoppingBagProvider>
+        </ProductProvider>
+      </AisleProvider>
+    </AuthProvider>
   </>
 }
