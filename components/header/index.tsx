@@ -7,9 +7,11 @@ import { useState } from "react";
 import { MenuIcon } from "@/assets/svg/MenuIcon";
 import { CloseIcon } from "@/assets/svg/CloseIcon";
 import { useShoppingBagContext } from "@/context/shoppingBag/shoppingBagContex";
+import { useAuthContext } from "@/context/auth/authContext";
 
 export function Header() {
   const [showMenu, setshowMenu] = useState(false)
+  const { user } = useAuthContext()
   const { getTotals } = useShoppingBagContext()
   const { totalItems } = getTotals()
   return (
@@ -34,9 +36,12 @@ export function Header() {
           <SearchBar />
         </div>
         <nav className={`${styles.interfaceIconContainer} ${showMenu ? '' : styles.hide}`}>
-          <Link href='/config'>
-            <InterfaceIcon type="settings" />
-          </Link>
+          {
+            (user?.uid && user.isAdmin) &&
+            <Link href='/config'>
+              <InterfaceIcon type="settings" />
+            </Link>
+          }
           <Link href='/login'>
             <InterfaceIcon type="user" />
           </Link>

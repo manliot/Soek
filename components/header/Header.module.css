@@ -29,6 +29,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 19px;
+    justify-self: flex-end;
 }
 
 .interfaceIconContainer a {
