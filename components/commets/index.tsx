@@ -13,14 +13,14 @@ import { toastMessage } from "@/services/toast/toast";
 export default function Comments() {
   const [show, setShow] = useState(false)
   const [comment, setComment] = useState<Comment>({
-    createdAt: new Date(),
+    createdAt: new Date().toJSON(),
     comment: ''
   })
 
   const onHandleClick = () => {
     setComment({
       uid: undefined,
-      createdAt: new Date(),
+      createdAt: new Date().toJSON(),
       userName: undefined,
       comment: '',
       photoUrl: undefined
@@ -38,14 +38,14 @@ export default function Comments() {
     if (auth.currentUser) {
       commentToAdd = {
         uid: auth.currentUser?.uid || undefined,
-        createdAt: new Date(),
+        createdAt: new Date().toJSON(),
         userName: auth.currentUser?.displayName || undefined,
         comment: comment.comment,
         photoUrl: auth.currentUser?.photoURL || undefined
       }
     } else {
       commentToAdd = {
-        createdAt: new Date(),
+        createdAt: new Date().toJSON(),
         comment: comment.comment,
       }
     }
