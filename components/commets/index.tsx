@@ -28,8 +28,7 @@ export default function Comments() {
     setShow(true)
   }
 
-  const onSubmitComment = async (e) => {
-    e.preventDefault()
+  const onSubmitComment = async () => {
     if (!comment.comment) {
       toastMessage('error', 'No puedes enviar un comentario vacío')
       return
