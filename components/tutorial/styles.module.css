@@ -1,0 +1,23 @@
+.container {
+  padding: 20px 20px 20px 20px;
+  box-sizing: border-box;
+  height: 317px;
+  width: 416px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--txt-color);
+  margin-bottom: 20px;
+}
+
+@media screen and (max-width: 479px) {
+  .container {
+    width: 100%;
+  }
+}
