@@ -3,13 +3,56 @@ import { FloatButton } from "@/components/floatButton";
 import { CommentsIcon } from "@/assets/svg/CommentsIcon";
 import { CardModal } from '../cardModal';
 import styles from './styles.module.css';
+import { auth } from '@/services/firebase/client';
+import { createComment } from "@/services/firebase/comments";
+import { Comment } from "@/types/Comments.interface";
+import { toastMessage } from "@/services/toast/toast";
+
+
 
 export default function Comments() {
   const [show, setShow] = useState(false)
-  const [comment, setComment] = useState('')
+  const [comment, setComment] = useState<Comment>({
+    createdAt: new Date(),
+    comment: ''
+  })
 
   const onHandleClick = () => {
+    setComment({
+      uid: undefined,
+      createdAt: new Date(),
+      userName: undefined,
+      comment: '',
+      photoUrl: undefined
+    })
     setShow(true)
+  }
+
+  const onSubmitComment = async (e) => {
+    e.preventDefault()
+    if (!comment.comment) {
+      toastMessage('error', 'No puedes enviar un comentario vacío')
+      return
+    }
+
+    let commentToAdd: Comment = comment
+    if (auth.currentUser) {
+      commentToAdd = {
+        uid: auth.currentUser?.uid || undefined,
+        createdAt: new Date(),
+        userName: auth.currentUser?.displayName || undefined,
+        comment: comment.comment,
+        photoUrl: auth.currentUser?.photoURL || undefined
+      }
+    } else {
+      commentToAdd = {
+        createdAt: new Date(),
+        comment: comment.comment,
+      }
+    }
+    setComment(commentToAdd)
+    await createComment(commentToAdd)
+    setShow(false)
   }
 
   return (
@@ -24,16 +67,22 @@ export default function Comments() {
         changeShow={setShow}
         show={show}
       >
-        <div className={styles.container}>
+        <form
+          className={styles.container}
+          onSubmit={onSubmitComment}
+        >
           <h2 className={styles.title}>Buzón de sugerencias</h2>
           <textarea
             className={styles.textarea}
             placeholder="Escribe aquí tu sugerencia"
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
+            value={comment.comment}
+            onChange={(e) => setComment({ ...comment, comment: e.target.value })}
           />
-          <button className={styles.btn}>Enviar</button>
-        </div>
+          <button
+            type='submit'
+            className={styles.btn}
+          >Enviar</button>
+        </form>
       </CardModal>
     </>
   )
