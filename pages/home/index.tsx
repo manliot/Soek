@@ -12,9 +12,8 @@ import { useAisleContext } from '@/context/aisles/aislesContext';
 import { AislesCard } from "@/components/aislesCard";
 import { NotProducts } from "@/components/notProducts";
 import { ShowAllAisles } from "@/components/showAllAisles";
-import { FloatButton } from "@/components/floatButton";
-import { CommentsIcon } from "@/assets/svg/CommentsIcon";
-import { InfoIcon } from "@/assets/svg/InfoIcon";
+import Comments from "@/components/commets";
+import Tutorial from "@/components/tutorial";
 
 export default function Home({ products, aisles }: HomeProps) {
 	const { updateProductState, getFilteredProducts } = useProductContext();
@@ -51,8 +50,8 @@ export default function Home({ products, aisles }: HomeProps) {
 					}
 				</div>
 			</main>
-			<FloatButton Icon={InfoIcon()} bottom={80} onHandleClick={() => console.log('Video')} backgroundColor="#00CFFC" />
-			<FloatButton Icon={CommentsIcon()} bottom={30} onHandleClick={() => console.log('commets')} />
+			<Tutorial />
+			<Comments />
 		</>
 	)
 }
