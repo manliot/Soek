@@ -8,6 +8,7 @@ import { MenuIcon } from "@/assets/svg/MenuIcon";
 import { CloseIcon } from "@/assets/svg/CloseIcon";
 import { useShoppingBagContext } from "@/context/shoppingBag/shoppingBagContex";
 import { useAuthContext } from "@/context/auth/authContext";
+import { toastMessage } from "@/services/toast/toast";
 
 export function Header() {
   const [showMenu, setshowMenu] = useState(false)
@@ -45,7 +46,10 @@ export function Header() {
           <Link href='/login'>
             <InterfaceIcon type="user" />
           </Link>
-          <Link href='/shopping-bag'>
+          <Link
+            href={user?.uid ? '/shopping-bag' : ''}
+            onClick={() => user?.uid ? null : toastMessage('error', 'Primero debe iniciar sesión')}
+          >
             <InterfaceIcon type="bag" notificationNumber={totalItems > 0 ? totalItems : undefined} />
           </Link>
           <button
