@@ -27,6 +27,7 @@ export function ProductBag({ product }: { product: Product & { quantity: number 
           src={product.url_img}
           fill={true}
           style={{ objectFit: 'contain' }}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </div>
       <div
