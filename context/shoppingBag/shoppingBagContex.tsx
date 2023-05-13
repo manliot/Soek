@@ -3,65 +3,73 @@ import { AisleDB } from "@/types/Aisle.interface";
 import { Product } from "@/types/Product.interface";
 import { useAisleContext } from '@/context/aisles/aislesContext'
 import { toastMessage } from "@/services/toast/toast";
+import { useAuthContext } from "../auth/authContext";
 
 const ShoppingBagContext = createContext({} as ShoppingBagContextProps);
 
 export function ShoppingBagProvider({ children }: { children: ReactNode }) {
   const [shoppingBag, setShoppingBag] = useState<ShoppingBagInterface[]>([])
   const { dataAisles } = useAisleContext()
+  const { user } = useAuthContext()
 
   const getShoppingBag = () => {
     return shoppingBag.sort((a, b) => a.aisle.aisleNumber - b.aisle.aisleNumber)
   }
 
   const addProductToShoppingBag = (product: Product) => {
-    const shoppingBagCopy = shoppingBag.slice()
+    if (user.uid) {
+      const shoppingBagCopy = shoppingBag.slice()
 
-    //first we need to find the aisle of the  product, if it exist we will find if products was added, 
-    //if it was added we will increase the quantity, if not we will add the product to the aisle
-    // if the aisle doesn't exist we will add a new element in shoppingBagCopy
-    const aisle = shoppingBagCopy.find((aisle) => aisle.aisle.id === product.aisle)
+      //first we need to find the aisle of the  product, if it exist we will find if products was added, 
+      //if it was added we will increase the quantity, if not we will add the product to the aisle
+      // if the aisle doesn't exist we will add a new element in shoppingBagCopy
+      const aisle = shoppingBagCopy.find((aisle) => aisle.aisle.id === product.aisle)
 
-    if (aisle) {
-      const productInAisle = aisle.products.find(productInAisle => productInAisle.id === product.id)
-      productInAisle
-        ? productInAisle.quantity += 1
-        : aisle.products.push({ ...product, quantity: 1 })
-      toastMessage('success', 'Producto añadido a la canasta')
-    } else {
-      const Aisle = dataAisles.find((aisle) => aisle.id === product.aisle)
-
-      if (Aisle) {
-        shoppingBagCopy.push({ aisle: Aisle, products: [{ ...product, quantity: 1 }] })
+      if (aisle) {
+        const productInAisle = aisle.products.find(productInAisle => productInAisle.id === product.id)
+        productInAisle
+          ? productInAisle.quantity += 1
+          : aisle.products.push({ ...product, quantity: 1 })
         toastMessage('success', 'Producto añadido a la canasta')
-      } else
-        toastMessage('error', 'No se encontró el pasillo del producto')
-    }
-    setShoppingBag(shoppingBagCopy)
+      } else {
+        const Aisle = dataAisles.find((aisle) => aisle.id === product.aisle)
+
+        if (Aisle) {
+          shoppingBagCopy.push({ aisle: Aisle, products: [{ ...product, quantity: 1 }] })
+          toastMessage('success', 'Producto añadido a la canasta')
+        } else
+          toastMessage('error', 'No se encontró el pasillo del producto')
+      }
+      setShoppingBag(shoppingBagCopy)
+    } else
+      toastMessage('error', 'Primero debe iniciar sesión')
   }
 
   const removeProductFromShoppingBag = (product: Product) => {
-    const shoppingBagCopy = shoppingBag.slice()
+    if (user.uid) {
+      const shoppingBagCopy = shoppingBag.slice()
 
-    const aisleIndex = shoppingBagCopy.findIndex(aisle => aisle.aisle.id === product.aisle)
-    if (aisleIndex === -1) {
-      toastMessage('error', 'No se encontró el pasillo del producto')
-    } else {
-      const productIndex = shoppingBagCopy[aisleIndex].products.findIndex(productInAisle => productInAisle.id === product.id)
-      if (productIndex === -1) {
-        toastMessage('error', 'No se encontró el producto')
+      const aisleIndex = shoppingBagCopy.findIndex(aisle => aisle.aisle.id === product.aisle)
+      if (aisleIndex === -1) {
+        toastMessage('error', 'No se encontró el pasillo del producto')
       } else {
-        const productInAisle = shoppingBagCopy[aisleIndex].products[productIndex]
-        productInAisle.quantity > 1
-          ? productInAisle.quantity -= 1
-          : shoppingBagCopy[aisleIndex].products.splice(productIndex, 1)
-        if (shoppingBagCopy[aisleIndex].products.length === 0) {
-          shoppingBagCopy.splice(aisleIndex, 1)
-          toastMessage('success', 'Producto eliminado de la canasta')
+        const productIndex = shoppingBagCopy[aisleIndex].products.findIndex(productInAisle => productInAisle.id === product.id)
+        if (productIndex === -1) {
+          toastMessage('error', 'No se encontró el producto')
+        } else {
+          const productInAisle = shoppingBagCopy[aisleIndex].products[productIndex]
+          productInAisle.quantity > 1
+            ? productInAisle.quantity -= 1
+            : shoppingBagCopy[aisleIndex].products.splice(productIndex, 1)
+          if (shoppingBagCopy[aisleIndex].products.length === 0) {
+            shoppingBagCopy.splice(aisleIndex, 1)
+            toastMessage('success', 'Producto eliminado de la canasta')
+          }
         }
       }
-    }
-    setShoppingBag(shoppingBagCopy)
+      setShoppingBag(shoppingBagCopy)
+    } else
+      toastMessage('error', 'Primero debe iniciar sesión')
   }
 
   const getTotals = (): { total: number, totalItems: number } => {
