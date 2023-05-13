@@ -9,7 +9,6 @@ import { collection, updateDoc, addDoc, doc, getDocs, query, where } from "fireb
  * @param: user: User - user object with uid and isAdmin
  * */
 export const createUser = async (user: User) => {
-  console.log('new user: ', user)
   try {
     await toastLoading(addDoc(collection(db, "user"), { uid: user.uid, isAdmin: false }), 'Creando usuario...', 'Usuario ha sido creado exitosamente', 'No se pudo crear tu usuario')
   } catch (error) {
@@ -66,7 +65,7 @@ export const getUserDBbyId = async (uid: string): Promise<{ uid: string, isAdmin
       toastMessage('error', 'No se encontró el usuario')
     return {} as { uid: string, isAdmin: boolean }
   } catch (error) {
-    console.log('error: ', error)
+    console.error('error: ', error)
     toastMessage('error', 'Ocurrió un error al obtener el usuario, intente nuevamente')
     return {} as { uid: string, isAdmin: boolean }
   }
