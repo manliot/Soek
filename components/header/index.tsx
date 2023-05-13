@@ -36,7 +36,11 @@ export function Header() {
         <div className={styles.SearchBarContainer}>
           <SearchBar />
         </div>
-        <nav className={`${styles.interfaceIconContainer} ${showMenu ? '' : styles.hide}`}>
+        <nav className={
+          `${styles.interfaceIconContainer} ${showMenu ? '' : styles.hide}
+          ${(user?.uid && user.isAdmin) ? styles.interfaceIconContainerThreeColumns : ''}`
+        }
+        >
           {
             (user?.uid && user.isAdmin) &&
             <Link href='/config'>

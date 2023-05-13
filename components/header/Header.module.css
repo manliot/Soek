@@ -19,7 +19,7 @@
     display: grid;
     align-items: center;
     justify-items: center;
-    grid-template-columns: 0.5fr 4fr 1fr;
+    grid-template-columns: auto 4fr auto;
     grid-gap: 15px;
     padding: 0 20px 0 20px;
     box-sizing: border-box;
@@ -27,9 +27,14 @@
 
 .interfaceIconContainer {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     grid-gap: 19px;
     justify-self: flex-end;
+}
+
+.interfaceIconContainerThreeColumns {
+    grid-template-columns: 1fr 1fr 1fr;
+
 }
 
 .interfaceIconContainer a {
