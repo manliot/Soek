@@ -18,7 +18,7 @@ export function ConfigSidebar() {
         className={`${styles.titleContainer} ${showOptions ? styles.fixed : ''}`}
         onClick={() => setshowOptions(!showOptions)}
       >
-        <h2>Configuración  ▼</h2>
+        <h2>Configuración</h2>
       </div>
       <div className={`
       ${styles.optionsContainer} 

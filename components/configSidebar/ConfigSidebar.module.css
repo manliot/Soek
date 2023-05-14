@@ -74,6 +74,10 @@
     width: 100%;
   }
 
+  .titleContainer h2::after {
+    content: '▼';
+  }
+
   .listUl {
     display: grid;
     justify-content: center;
@@ -104,11 +108,17 @@
     margin: 0;
     padding: 15px;
     background-color: rgb(255, 255, 255);
-    top: 183px;
+    top: 142px;
     display: none;
   }
 
   .show {
     display: initial;
+  }
+}
+
+@media screen and (max-width: 637px) {
+  .optionsContainer {
+    top: 183px;
   }
 }
