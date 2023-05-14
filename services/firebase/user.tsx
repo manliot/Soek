@@ -10,7 +10,7 @@ import { collection, updateDoc, addDoc, doc, getDocs, query, where } from "fireb
  * */
 export const createUser = async (user: User) => {
   try {
-    await toastLoading(addDoc(collection(db, "user"), { uid: user.uid, isAdmin: false }), 'Creando usuario...', 'Usuario ha sido creado exitosamente', 'No se pudo crear tu usuario')
+    await toastLoading(addDoc(collection(db, "user"), { uid: user.uid, email: user.email, isAdmin: false }), 'Creando usuario...', 'Usuario ha sido creado exitosamente', 'No se pudo crear tu usuario')
   } catch (error) {
     toastMessage('error', 'Ocurrió un error, intente nuevamente')
   }

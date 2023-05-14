@@ -10,3 +10,9 @@ export interface LoginUser {
   user: User
   token: string;
 }
+
+export interface UserDB {
+  uid: string;
+  isAdmin: boolean;
+  email: string;
+}
