@@ -6,6 +6,7 @@ import { AisleProvider } from '@/context/aisles/aislesContext'
 import { ShoppingBagProvider } from '@/context/shoppingBag/shoppingBagContex'
 import Head from 'next/head'
 import { AuthProvider } from '@/context/auth/authContext'
+import { SideBarContextProvider } from '@/context/sidebar/sideBarContext'
 
 export default function App({ Component, pageProps }: AppProps) {
   return <>
@@ -19,8 +20,10 @@ export default function App({ Component, pageProps }: AppProps) {
       <AisleProvider>
         <ProductProvider>
           <ShoppingBagProvider>
+          <SideBarContextProvider>
             <Component {...pageProps} />
             <Toaster />
+            </SideBarContextProvider>
           </ShoppingBagProvider>
         </ProductProvider>
       </AisleProvider>

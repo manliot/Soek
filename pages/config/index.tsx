@@ -5,29 +5,33 @@ import styles from "@/styles/config/Config.module.css";
 import { Header } from "@/components/header";
 import { ConfigSidebar } from "@/components/configSidebar";
 import { ConfigContent } from "@/components/configContent";
-import { SideBarContextProvider } from "@/context/sidebar/sideBarContext";
+import { SideBarContextProvider, useSidebarContext } from "@/context/sidebar/sideBarContext";
 import { Product } from '@/types/Product.interface';
 import { AisleDB } from '@/types/Aisle.interface';
 import { GetServerSidePropsContext } from 'next';
 import { HomeProps } from "../../types/home/Home.interface";
 import Head from 'next/head'
+import { Comment } from "@/types/Comments.interface";
 
-export default function Config({ products, aisles }: HomeProps) {
+export default function Config({ products, aisles, comments }: HomeProps) {
   const { updateProductState: updateProductStatus } = useProductContext();
   const { updateAislesStatus } = useAisleContext();
+  const { setComments } = useSidebarContext();
 
   useEffect(() => {
     const updateProducts = () => {
       updateProductStatus(products)
       updateAislesStatus(aisles)
+      setComments(comments || [])
     }
     updateProducts()
   }, [])
 
   return (
-    <SideBarContextProvider>
+  <>
+   
       <Head>
-        <title>Actualizar Inventario</title>
+        <title>Configuración</title>
       </Head>
       <Header />
       <main className={styles.main}>
@@ -36,7 +40,7 @@ export default function Config({ products, aisles }: HomeProps) {
           <ConfigContent />
         </div>
       </main>
-    </SideBarContextProvider>
+      </> 
   )
 }
 
@@ -44,6 +48,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
   let productData: Product[] = []
   let aisleData: AisleDB[] = []
+  let commentData: Comment[] = []
   try {
     //get Products
     let tempProductData: Product[] = []
@@ -63,11 +68,16 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       return product
     })
 
+    //get Comments
+    const resComments = await fetch(`${BASE_URL}/api/comment`)
+    const { data: dataComments }: { data: Comment[] } = await resComments.json()
+    commentData = [...dataComments]
 
     return {
       props: {
         products: productData,
         aisles: aisleData,
+        comments: commentData,
       },
     }
   } catch (error) {
