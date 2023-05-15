@@ -51,7 +51,7 @@ export function ProductForm({ disabledInputs, action, onSubmitAction }: ProductF
     e.preventDefault();
     if ((action === 'update' || action === 'delete') && !formValues.id) {
       toastMessage('error', 'No se ha seleccionado un producto')
-    } else if (action === 'add' && formValues.file_img?.lastModified) {
+    } else if (action === 'add' && !formValues.file_img?.lastModified) {
       toastMessage('error', 'No se ha seleccionado una imagen')
     } else if (action !== 'add' && !formValues.url_img) {
       toastMessage('error', 'No se ha seleccionado una imagen')
