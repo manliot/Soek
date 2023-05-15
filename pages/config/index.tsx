@@ -12,24 +12,25 @@ import { GetServerSidePropsContext } from 'next';
 import { HomeProps } from "../../types/home/Home.interface";
 import Head from 'next/head'
 import { Comment } from "@/types/Comments.interface";
+import { UserDB } from "@/types/User.interface";
 
-export default function Config({ products, aisles, comments }: HomeProps) {
+export default function Config({ products, aisles, comments, users }: HomeProps) {
   const { updateProductState: updateProductStatus } = useProductContext();
   const { updateAislesStatus } = useAisleContext();
-  const { setComments } = useSidebarContext();
+  const { setComments, setUsers } = useSidebarContext();
 
   useEffect(() => {
     const updateProducts = () => {
       updateProductStatus(products)
       updateAislesStatus(aisles)
       setComments(comments || [])
+      setUsers(users || [])
     }
     updateProducts()
   }, [])
 
   return (
-  <>
-   
+    <>
       <Head>
         <title>Configuración</title>
       </Head>
@@ -40,7 +41,7 @@ export default function Config({ products, aisles, comments }: HomeProps) {
           <ConfigContent />
         </div>
       </main>
-      </> 
+    </>
   )
 }
 
@@ -49,6 +50,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   let productData: Product[] = []
   let aisleData: AisleDB[] = []
   let commentData: Comment[] = []
+  let userData: UserDB[] = []
   try {
     //get Products
     let tempProductData: Product[] = []
@@ -73,11 +75,17 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { data: dataComments }: { data: Comment[] } = await resComments.json()
     commentData = [...dataComments]
 
+    //get Users
+    const resUsers = await fetch(`${BASE_URL}/api/user`)
+    const { data: dataUsers }: { data: UserDB[] } = await resUsers.json()
+    userData = [...dataUsers]
+
     return {
       props: {
         products: productData,
         aisles: aisleData,
         comments: commentData,
+        users: userData,
       },
     }
   } catch (error) {

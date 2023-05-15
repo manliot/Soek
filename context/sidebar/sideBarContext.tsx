@@ -7,6 +7,7 @@ import { CommentsConfigIcon } from "@/assets/svg/CommentsConfigIcon";
 import { UserConfigIcon } from "@/assets/svg/UserConfigIcon";
 import { SidebarContextType } from "./sideBarContext.interface";
 import { Comment } from "@/types/Comments.interface";
+import { UserDB } from "@/types/User.interface";
 
 
 const OPTIONS: Option[] = [
@@ -38,6 +39,8 @@ const defaultValues: SidebarContextType = {
   OPTIONS: [],
   comments: [],
   setComments: () => { },
+  users: [],
+  setUsers: () => { }
 };
 
 
@@ -50,6 +53,8 @@ export function useSidebarContext() {
 export const SideBarContextProvider = ({ children }: { children: ReactNode }) => {
   const [activeOption, setActiveOption] = useState(OPTIONS[0]);
   const [comments, setComments] = useState<Comment[]>([]);
+  const [users, setUsers] = useState<UserDB[]>([]);
+
   return (
     <SidebarContext.Provider value={{
       activeOption,
@@ -57,6 +62,8 @@ export const SideBarContextProvider = ({ children }: { children: ReactNode }) =>
       OPTIONS,
       comments,
       setComments,
+      users,
+      setUsers
     }}
     >{children}</SidebarContext.Provider>
   )
