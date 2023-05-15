@@ -5,7 +5,7 @@ import styles from "@/styles/config/Config.module.css";
 import { Header } from "@/components/header";
 import { ConfigSidebar } from "@/components/configSidebar";
 import { ConfigContent } from "@/components/configContent";
-import { SideBarContextProvider, useSidebarContext } from "@/context/sidebar/sideBarContext";
+import { useSidebarContext } from "@/context/sidebar/sideBarContext";
 import { Product } from '@/types/Product.interface';
 import { AisleDB } from '@/types/Aisle.interface';
 import { GetServerSidePropsContext } from 'next';
@@ -13,11 +13,13 @@ import { HomeProps } from "../../types/home/Home.interface";
 import Head from 'next/head'
 import { Comment } from "@/types/Comments.interface";
 import { UserDB } from "@/types/User.interface";
+import { useAuthContext } from "@/context/auth/authContext";
 
 export default function Config({ products, aisles, comments, users }: HomeProps) {
   const { updateProductState: updateProductStatus } = useProductContext();
   const { updateAislesStatus } = useAisleContext();
   const { setComments, setUsers } = useSidebarContext();
+  const { user } = useAuthContext()
 
   useEffect(() => {
     const updateProducts = () => {
@@ -30,18 +32,25 @@ export default function Config({ products, aisles, comments, users }: HomeProps)
   }, [])
 
   return (
-    <>
-      <Head>
-        <title>Configuración</title>
-      </Head>
-      <Header />
-      <main className={styles.main}>
-        <ConfigSidebar />
-        <div className={styles.contentContainer}>
-          <ConfigContent />
+    <div>
+      {!user?.uid
+        ? <div>
+          <p>No tienes permisos para acceder a esta página☹️</p>
         </div>
-      </main>
-    </>
+        : <>
+          <Head>
+            <title>Configuración</title>
+          </Head>
+          <Header />
+          <main className={styles.main}>
+            <ConfigSidebar />
+            <div className={styles.contentContainer}>
+              <ConfigContent />
+            </div>
+          </main>
+        </>
+      }
+    </div>
   )
 }
 
