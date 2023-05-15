@@ -4,11 +4,12 @@ import { SettingsIcon } from "../../assets/svg/SettingsIcon";
 import { UserIcon } from "../../assets/svg/UserIcon";
 import { ShoppingBag } from "../../assets/svg/ShoppingBag";
 import { ErrorIcon } from "../../assets/svg/ErrorIcon";
-import { useUser } from "../../hooks/useUser";
+
+import { useAuthContext } from "@/context/auth/authContext";
 
 
 export function InterfaceIcon(props: propsType) {
-	const user = useUser()
+	const { user } = useAuthContext()
 	const txtIcon = getTxtIcon(props.type, props.txt)
 	return (
 		<div className={styles.container}>

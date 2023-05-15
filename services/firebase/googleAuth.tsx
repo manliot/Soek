@@ -1,45 +1,18 @@
-import { auth, app } from './client'
-import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
-import { User, LoginUser } from "../../types/User.interface";
+import { auth } from './client'
+import { GoogleAuthProvider, signInWithPopup, signOut, UserCredential } from "firebase/auth";
 import { toastMessage } from "../toast/toast";
 
-const replaceEmpty = (value: string | null): string => {
-  if (value)
-    return value
-  return ''
-}
-
-const mapUserFromFirebaseAuthToUser = (user: User): User => {
-  const { displayName, email, photoURL, uid } = user
-
-  return {
-    displayName,
-    email,
-    photoURL,
-    uid
-  }
-}
-
-export const onAuthStateChanged = (onChange: (user: User) => void) => {
-  return auth.onAuthStateChanged(user => {
-    const normalizedUser = user
-      ? mapUserFromFirebaseAuthToUser(user as User)
-      : {} as User
-    onChange(normalizedUser)
-  })
-}
-
-
-export const LoginWithGoogle = (): Promise<boolean> => {
+/**
+ * This function allow to login with google in firebase auth.
+ * @returns user object from firebase auth
+ */
+export const LoginWithGoogle = (): Promise<UserCredential> => {
   const googleProvider = new GoogleAuthProvider();
+
   return new Promise((resolve, reject) => {
     signInWithPopup(auth, googleProvider)
-      .then(res => {
-        const toastOptions = {
-          icon: '👋'
-        }
-        toastMessage('success', `Bienvenid@ ${res.user.displayName} !`, toastOptions)
-        resolve(true)
+      .then(async res => {
+        resolve(res)
       })
       .catch(err => {
         toastMessage('error', `No se pudo iniciar sesión`)
@@ -49,8 +22,10 @@ export const LoginWithGoogle = (): Promise<boolean> => {
   })
 }
 
-
-
+/**
+ * This function allow to logout from firebase auth.
+ * @returns true if logout was successful
+ */
 export const Logout = (): Promise<boolean> => {
   return new Promise((resolve, reject) => {
     signOut(auth)

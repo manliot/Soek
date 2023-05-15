@@ -45,4 +45,8 @@
   .main {
     margin-top: 150px;
   }
+
+  .container {
+    padding: 0 0 70px 0;
+  }
 }

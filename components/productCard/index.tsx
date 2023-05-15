@@ -28,6 +28,7 @@ export function ProductCard({ product = defaultProduct }: { product: Product }) 
           alt={`${product.name} - ${product.aisle}`}
           fill={true}
           style={{ objectFit: 'contain' }}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </div>
       <div className={styles.content}>

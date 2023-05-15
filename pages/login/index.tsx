@@ -3,32 +3,29 @@ import styles from "@/styles/login/Login.module.css";
 import { CardModal } from "@/components/cardModal";
 import Image from "next/image";
 import { GoogleIcon } from "../../assets/svg/GoogleIcon";
-import { LoginWithGoogle, Logout } from "../../services/firebase/googleAuth";
 import { useNavigation } from '../../hooks/useNavigation'
 import Head from 'next/head'
+import { useAuthContext } from '@/context/auth/authContext';
 
-import { useUser } from "../../hooks/useUser";
 
 export default function Login() {
   const { navigateTo, navigateBack } = useNavigation()
+  const { user, login, logout } = useAuthContext()
   const [showFrom, setshowFrom] = useState(true)
-  const user = useUser()
+
 
   const handleLoginClick = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()
-
-    LoginWithGoogle()
-      .then(res => {
-        navigateTo('/home')
-      })
+    login().then(res => {
+      navigateTo('/home')
+    })
   }
 
   const handleLogoutClick = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()
-    Logout()
-      .then(res => {
-        navigateTo('/home')
-      })
+    logout().then(res => {
+      navigateTo('/home')
+    })
   }
 
   const onCancel = () => {

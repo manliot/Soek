@@ -9,6 +9,8 @@ import { HomeProps } from "../../types/home/Home.interface";
 import { useProductContext } from '@/context/products/productContext';
 import { useAisleContext } from '@/context/aisles/aislesContext';
 import { AislesCard } from "@/components/aislesCard";
+import Tutorial from '@/components/tutorial';
+import Comments from '@/components/commets';
 
 export default function Aisles({ products, aisles }: HomeProps) {
   const { updateProductState } = useProductContext();
@@ -22,7 +24,6 @@ export default function Aisles({ products, aisles }: HomeProps) {
     fillInfo()
     resetFilteredAisles()
   }, [])
-
 
   return (
     <>
@@ -47,6 +48,8 @@ export default function Aisles({ products, aisles }: HomeProps) {
           </div>
         </div>
       </main>
+      <Tutorial />
+      <Comments />
     </>
   )
 }

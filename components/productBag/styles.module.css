@@ -22,19 +22,28 @@
 }
 
 .productInfo {
-  flex: 1;
-  box-sizing: border-box;
-  margin: 0 15px;
-  height: 100%;
-  max-height: 80px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  white-space: nowrap;
+  box-sizing: border-box;
+  margin: 0 15px;
+  max-height: 140px;
+  max-width: 100%;
+  text-align: start;
+  flex: 1;
+}
+
+.productInfo .productInfoBrand {
+  max-height: 30px;
   overflow: hidden;
   text-overflow: ellipsis;
-  text-align: start;
+}
+
+.productInfo .productInfoName {
+  max-height: 110px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .productQuantity {
@@ -72,13 +81,11 @@
     grid-template-rows: 1.5fr 1fr;
     height: 220px;
     padding: 20px 30px;
-
     /* 3 columnas para tabletas */
   }
 
   .productImage {
     width: 90%;
-
   }
 
   .productQuantity {
