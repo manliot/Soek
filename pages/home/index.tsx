@@ -14,6 +14,7 @@ import { NotProducts } from "@/components/notProducts";
 import { ShowAllAisles } from "@/components/showAllAisles";
 import Comments from "@/components/commets";
 import Tutorial from "@/components/tutorial";
+import { Credits } from "@/components/credits";
 
 export default function Home({ products, aisles }: HomeProps) {
 	const { updateProductState, getFilteredProducts } = useProductContext();
@@ -52,6 +53,7 @@ export default function Home({ products, aisles }: HomeProps) {
 			</main>
 			<Tutorial />
 			<Comments />
+			<Credits></Credits>
 		</>
 	)
 }
