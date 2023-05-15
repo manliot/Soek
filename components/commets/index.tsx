@@ -59,7 +59,7 @@ export default function Comments() {
     <>
       <FloatButton
         Icon={CommentsIcon()}
-        bottom={30}
+        bottom={60}
         onHandleClick={onHandleClick}
       />
       <CardModal

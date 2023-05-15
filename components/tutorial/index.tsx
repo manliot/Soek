@@ -16,7 +16,7 @@ export default function Tutorial() {
     <>
       <FloatButton
         Icon={InfoIcon()}
-        bottom={80}
+        bottom={110}
         onHandleClick={onHandleClick}
         backgroundColor="#00CFFC" />
 
