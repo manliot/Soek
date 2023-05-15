@@ -25,7 +25,7 @@ export function ViewComments() {
               />
               <div>
                 <strong>{comment.userName ? comment.userName : 'Anónimo'}</strong>
-                <p className={styles.date}> publicado {comment.createdAt ? comment.createdAt : 'Anónimo'}</p>
+                <p className={styles.date}> publicado {comment.createdAt ? new Date(comment.createdAt).toLocaleDateString() : ''}</p>
               </div>
             </div>
             <div
