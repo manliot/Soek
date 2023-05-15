@@ -28,7 +28,8 @@ export default function Comments() {
     setShow(true)
   }
 
-  const onSubmitComment = async () => {
+  const onSubmitComment = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (!comment.comment) {
       toastMessage('error', 'No puedes enviar un comentario vacío')
       return
