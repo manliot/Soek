@@ -1,0 +1,49 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  box-sizing: border-box;
+  align-items: center;
+  gap: 30px;
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 20px;
+  row-gap: 15px;
+}
+
+.span {
+  margin-bottom: 15px;
+}
+
+.select {
+  padding: 5px;
+  border-radius: 8px;
+  border-color: rgb(179, 178, 178);
+}
+
+@media screen and (max-width: 680px) {
+  .columns {
+    grid-template-columns: 1fr;
+    align-items: center;
+  }
+
+  .columns h3::after {
+    content: '/Tipo de usuario';
+  }
+
+  .emailTitle {
+    display: none;
+  }
+
+  .select {
+    margin-top: -10px;
+    margin-bottom: 10px;
+  }
+}

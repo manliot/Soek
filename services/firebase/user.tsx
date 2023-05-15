@@ -1,4 +1,4 @@
-import { User } from "@/types/User.interface";
+import { User, UserDB } from "@/types/User.interface";
 import { db } from "../../services/firebase/client";
 import { toastLoading, toastMessage } from "../../services/toast/toast";
 import { collection, updateDoc, addDoc, doc, getDocs, query, where } from "firebase/firestore";
@@ -20,11 +20,14 @@ export const createUser = async (user: User) => {
  * This function allow to upgrade a user to admin.
  * @param: user: User - user object with uid and isAdmin
  * */
-export const upgradeToAdmin = async (user: User) => {
+export const upgradeToAdmin = async (user: UserDB) => {
   try {
-    const userReference = doc(db, "user", user.uid || '')
-    if (userReference) {
-      await toastLoading(updateDoc(userReference, { ...user, isAdmin: true }), 'Actualizando Usuario...', 'Ahora tienes permiso de administrador', 'No se pudo actualizar el usuario')
+    const q = query(collection(db, "user"), where("uid", "==", user.uid));
+    const userDb = await getDocs(q)
+    if (userDb) {
+      const userReference = userDb.docs[0].ref;
+      if (userReference)
+        await toastLoading(updateDoc(userReference, { ...user, isAdmin: true }), 'Actualizando Usuario...', 'Ahora tienes permiso de administrador', 'No se pudo actualizar el usuario')
     } else
       toastMessage('error', 'No se encontró el usuario a actualizar')
 
@@ -37,15 +40,19 @@ export const upgradeToAdmin = async (user: User) => {
  * This function allow to downgrade a user to user.
  * @param: user: User - user object with uid and isAdmin
  * */
-export const downgradeToUser = async (user: User) => {
+export const downgradeToUser = async (user: UserDB) => {
   try {
-    const userReference = doc(db, "user", user.uid || '')
-    if (userReference) {
-      await toastLoading(updateDoc(userReference, { ...user, isAdmin: false }), 'Actualizando Usuario...', 'Tus permisos de administrador han sido revocados', 'No se pudo actualizar el usuario')
+    const q = query(collection(db, "user"), where("uid", "==", user.uid));
+    const userDb = await getDocs(q)
+    if (userDb) {
+      const userReference = userDb.docs[0].ref;
+      if (userReference)
+        await toastLoading(updateDoc(userReference, { ...user, isAdmin: false }), 'Actualizando Usuario...', 'Tus permisos de administrador han sido revocados', 'No se pudo actualizar el usuario')
     } else
       toastMessage('error', 'No se encontró el usuario a actualizar')
 
   } catch (error) {
+    console.error('error: ', error)
     toastMessage('error', 'Ocurrió un error al quitar permisos de administrador, intente nuevamente')
   }
 }
