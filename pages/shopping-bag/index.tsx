@@ -5,6 +5,8 @@ import styles from "@/styles/shopping-bag/styles.module.css"
 import { getCurrencyNumber } from "@/services/formatServices/numberFormat";
 import { AisleBag } from "@/components/aisleBag";
 import { ProductBag } from "@/components/productBag";
+import Tutorial from "@/components/tutorial";
+import Comments from "@/components/commets";
 
 export default function ShoppingBag() {
   const { getShoppingBag: shoppingBag, getTotals } = useShoppingBagContext()
@@ -49,6 +51,8 @@ export default function ShoppingBag() {
           }
         </div>
       </main>
+      <Tutorial />
+      <Comments />
     </>
   )
 }

@@ -46,3 +46,16 @@
 .deleteBtn {
   background-color: #c62323;
 }
+
+/* tablet */
+@media screen and (max-width: 916px) {
+  .form {
+    margin-top: 20px;
+    grid-template-areas:
+    "right"
+    "left"
+    "btn";
+    row-gap: 20px;
+    margin-bottom: 50px;
+  }
+}
